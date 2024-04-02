@@ -39,7 +39,7 @@ public class AuctionService {
             auctionEntity.setAuctionuser(auctionDto.getAuctionuser());
 
             // 이미지 엔티티 저장
-            List<AuctionImageEntity> imageEntities = saveImages(auctionDto.getAuctionimage());
+            List<AuctionImageEntity> imageEntities = saveImages(auctionDto.getAuctionimage(), auctionEntity);
             auctionEntity.setAuctionimages(imageEntities);
 
             auctionRepository.save(auctionEntity);
@@ -76,7 +76,7 @@ public class AuctionService {
         return auctionDtos;
     }
 
-    private List<AuctionImageEntity> saveImages(List<MultipartFile> images) {
+    private List<AuctionImageEntity> saveImages(List<MultipartFile> images, AuctionEntity auctionEntity) {
         List<AuctionImageEntity> imageEntities = new ArrayList<>();
         try {
             if (images != null) { // 이미지가 첨부되었는지 확인
@@ -100,6 +100,7 @@ public class AuctionService {
                     // 이미지 엔티티 생성 및 추가
                     AuctionImageEntity imageEntity = new AuctionImageEntity();
                     imageEntity.setAuctionimagepath(uploadDir + fileName);
+                    imageEntity.setAuctionentity(auctionEntity); // AuctionEntity 설정
                     imageEntities.add(imageEntity);
                 }
             }

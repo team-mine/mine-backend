@@ -22,12 +22,12 @@ public class AuctionController {
 
     @PostMapping("/auctionwrite")
     public ResponseEntity<String> auctionwrite(@RequestParam(value = "auctionimages", required = false) List<MultipartFile> auctionimages,
-                                               @RequestParam("auctiontitle") String auctiontitle,
-                                               @RequestParam("auctioncontent") String auctioncontent,
-                                               @RequestParam("auctionuser") String auctionuser,
-                                               @RequestParam("auctioncategory") String auctioncategory,
-                                               @RequestParam("auctionprice") String auctionprice,
-                                               @RequestParam("auctionendtime") String auctionendtime){
+                                               @RequestParam(value = "auctiontitle", required = false) String auctiontitle,
+                                               @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
+                                               @RequestParam(value = "auctionuser", required = false) String auctionuser,
+                                               @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
+                                               @RequestParam(value = "auctionprice", required = false) String auctionprice,
+                                               @RequestParam(value = "auctionendtime", required = false) String auctionendtime){
         try{
             AuctionDto auctiondto = new AuctionDto();
             auctiondto.setAuctionimage(auctionimages);
