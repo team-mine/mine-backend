@@ -11,9 +11,9 @@ public class AuctionDto {
     private String auctioncontent;
     private String auctionuser;
     private String auctiontime;
-    private String auctioncategori;
-    private Long auctionprice;
-    private Long auctionendtime;
+    private String auctioncategory;
+    private String auctionprice;
+    private String auctionendtime;
     private List<MultipartFile> auctionimage;
     private List<String> auctionimageurl;
 }

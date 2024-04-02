@@ -26,14 +26,14 @@ public class AuctionEntity {
     @Column(name = "auctiontime")
     private String auctiontime;
 
-    @Column(name = "auctioncategori")
-    private String auctioncategori;
+    @Column(name = "auctioncategory")
+    private String auctioncategory;
 
     @Column(name = "auctionprice")
-    private Long auctionprice;
+    private String auctionprice;
 
     @Column(name = "auctionendtime")
-    private Long auctionendtime;
+    private String auctionendtime;
 
     @OneToMany(mappedBy = "auctionentity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AuctionImageEntity> auctionimages;

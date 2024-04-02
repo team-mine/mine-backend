@@ -32,7 +32,7 @@ public class AuctionService {
             AuctionEntity auctionEntity = new AuctionEntity();
             auctionEntity.setAuctiontitle(auctionDto.getAuctiontitle());
             auctionEntity.setAuctioncontent(auctionDto.getAuctioncontent());
-            auctionEntity.setAuctioncategori(auctionDto.getAuctioncategori());
+            auctionEntity.setAuctioncategory(auctionDto.getAuctioncategory());
             auctionEntity.setAuctiontime(LocalDateTime.now().toString());
             auctionEntity.setAuctionendtime(auctionDto.getAuctionendtime());
             auctionEntity.setAuctionprice(auctionDto.getAuctionprice());
@@ -58,7 +58,7 @@ public class AuctionService {
             dto.setAuctionid(entity.getAuctionid());
             dto.setAuctiontitle(entity.getAuctiontitle());
             dto.setAuctioncontent(entity.getAuctioncontent());
-            dto.setAuctioncategori(entity.getAuctioncategori());
+            dto.setAuctioncategory(entity.getAuctioncategory());
             dto.setAuctionuser(entity.getAuctionuser());
             dto.setAuctiontime(entity.getAuctiontime());
             dto.setAuctionendtime(entity.getAuctionendtime());

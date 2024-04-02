@@ -25,16 +25,16 @@ public class AuctionController {
                                                @RequestParam("auctiontitle") String auctiontitle,
                                                @RequestParam("auctioncontent") String auctioncontent,
                                                @RequestParam("auctionuser") String auctionuser,
-                                               @RequestParam("auctioncategori") String auctioncategori,
-                                               @RequestParam("auctionprice") Long auctionprice,
-                                               @RequestParam("auctionendtime") Long auctionendtime){
+                                               @RequestParam("auctioncategory") String auctioncategory,
+                                               @RequestParam("auctionprice") String auctionprice,
+                                               @RequestParam("auctionendtime") String auctionendtime){
         try{
             AuctionDto auctiondto = new AuctionDto();
             auctiondto.setAuctionimage(auctionimages);
             auctiondto.setAuctiontitle(auctiontitle);
             auctiondto.setAuctioncontent(auctioncontent);
             auctiondto.setAuctionuser(auctionuser);
-            auctiondto.setAuctioncategori(auctioncategori);
+            auctiondto.setAuctioncategory(auctioncategory);
             auctiondto.setAuctionprice(auctionprice);
             auctiondto.setAuctionendtime(auctionendtime);
 
