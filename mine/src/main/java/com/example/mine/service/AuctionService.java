@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -37,6 +38,8 @@ public class AuctionService {
             auctionEntity.setAuctionendtime(auctionDto.getAuctionendtime());
             auctionEntity.setAuctionprice(auctionDto.getAuctionprice());
             auctionEntity.setAuctionuser(auctionDto.getAuctionuser());
+            auctionEntity.setAuctionbidprice(auctionDto.getAuctionbidprice());
+            auctionEntity.setAuctiondirectbid(auctionDto.getAuctiondirectbid());
 
             // 이미지 엔티티 저장
             List<AuctionImageEntity> imageEntities = saveImages(auctionDto.getAuctionimage(), auctionEntity);
@@ -54,24 +57,26 @@ public class AuctionService {
         List<AuctionDto> auctionDtos = new ArrayList<>();
         List<AuctionEntity> auctionEntities = auctionRepository.findAll();
         for (AuctionEntity entity : auctionEntities) {
-            AuctionDto dto = new AuctionDto();
-            dto.setAuctionid(entity.getAuctionid());
-            dto.setAuctiontitle(entity.getAuctiontitle());
-            dto.setAuctioncontent(entity.getAuctioncontent());
-            dto.setAuctioncategory(entity.getAuctioncategory());
-            dto.setAuctionuser(entity.getAuctionuser());
-            dto.setAuctiontime(entity.getAuctiontime());
-            dto.setAuctionendtime(entity.getAuctionendtime());
-            dto.setAuctionprice(entity.getAuctionprice());
+            AuctionDto auctionDto = new AuctionDto();
+            auctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+            auctionDto.setAuctiontitle(entity.getAuctiontitle());
+            auctionDto.setAuctioncontent(entity.getAuctioncontent());
+            auctionDto.setAuctioncategory(entity.getAuctioncategory());
+            auctionDto.setAuctionuser(entity.getAuctionuser());
+            auctionDto.setAuctiontime(entity.getAuctiontime());
+            auctionDto.setAuctionendtime(entity.getAuctionendtime());
+            auctionDto.setAuctionprice(entity.getAuctionprice());
+            auctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+            auctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
 
             // 이미지 경로 추가
             List<String> imageUrls = new ArrayList<>();
             for (AuctionImageEntity imageEntity : entity.getAuctionimages()) {
                 imageUrls.add(imageEntity.getAuctionimagepath());
             }
-            dto.setAuctionimageurl(imageUrls);
+            auctionDto.setAuctionimageurl(imageUrls);
 
-            auctionDtos.add(dto);
+            auctionDtos.add(auctionDto);
         }
         return auctionDtos;
     }
@@ -107,7 +112,33 @@ public class AuctionService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("imageEntities:" + imageEntities);
         return imageEntities;
+    }
+
+    public String updateAuctionBidPrice(AuctionDto auctionDto) {
+        try {
+
+            Long auctionId = auctionDto.getAuctionid();
+            String bidPrice = auctionDto.getAuctionbidprice();
+
+            System.out.println("auctionid:" + auctionId);
+
+            Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionId);
+
+            if (auctionOptional.isPresent()) {
+                AuctionEntity auctionEntity = auctionOptional.get();
+
+                auctionEntity.setAuctionbidprice(bidPrice);
+
+                auctionRepository.save(auctionEntity);
+
+                return "경매 입찰가 업데이트 완료";
+            } else {
+                return "해당하는 경매가 존재하지 않습니다";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "505 예기치 못한 오류입니다";
+        }
     }
 }

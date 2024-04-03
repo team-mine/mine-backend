@@ -37,4 +37,10 @@ public class AuctionEntity {
 
     @OneToMany(mappedBy = "auctionentity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AuctionImageEntity> auctionimages;
+
+    @Column(name = "auctiondirectbid")
+    private String auctiondirectbid;
+
+    @Column(name = "auctionbidprice")
+    private String auctionbidprice;
 }

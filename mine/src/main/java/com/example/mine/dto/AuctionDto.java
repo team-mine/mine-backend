@@ -16,4 +16,6 @@ public class AuctionDto {
     private String auctionendtime;
     private List<MultipartFile> auctionimage;
     private List<String> auctionimageurl;
+    private String auctiondirectbid;
+    private String auctionbidprice;
 }

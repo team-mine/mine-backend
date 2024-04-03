@@ -27,7 +27,8 @@ public class AuctionController {
                                                @RequestParam(value = "auctionuser", required = false) String auctionuser,
                                                @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
                                                @RequestParam(value = "auctionprice", required = false) String auctionprice,
-                                               @RequestParam(value = "auctionendtime", required = false) String auctionendtime){
+                                               @RequestParam(value = "auctionendtime", required = false) String auctionendtime,
+                                               @RequestParam(value = "auctiondirectbid", required = false) String auctiondirectbid){
         try{
             AuctionDto auctiondto = new AuctionDto();
             auctiondto.setAuctionimage(auctionimages);
@@ -37,6 +38,8 @@ public class AuctionController {
             auctiondto.setAuctioncategory(auctioncategory);
             auctiondto.setAuctionprice(auctionprice);
             auctiondto.setAuctionendtime(auctionendtime);
+            auctiondto.setAuctiondirectbid(auctiondirectbid);
+            auctiondto.setAuctionbidprice(auctionprice);
 
             auctionservice.saveAuction(auctiondto);
             return ResponseEntity.ok("글 작성 완료!");
@@ -53,6 +56,23 @@ public class AuctionController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/auctionbidprice")
+    public ResponseEntity<String> auctionbidprice(@RequestParam(value = "auctionbidprice", required = false) String auctionbidprice,
+                                                  @RequestParam(value = "auctionid", required = false) Long auctionid){
+        try{
+            AuctionDto auctionDto = new AuctionDto();
+
+            auctionDto.setAuctionid(auctionid);
+            auctionDto.setAuctionbidprice(auctionbidprice);
+
+            auctionservice.updateAuctionBidPrice(auctionDto);
+
+            return ResponseEntity.ok("경매입찰가 업데이트 완료!");
+            }catch(Exception e){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
         }
     }
 }
