@@ -68,6 +68,7 @@ public class AuctionService {
             auctionDto.setAuctionprice(entity.getAuctionprice());
             auctionDto.setAuctionbidprice(entity.getAuctionbidprice());
             auctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+            auctionDto.setAuctionbidder(entity.getAuctionbidder());
 
             // 이미지 경로 추가
             List<String> imageUrls = new ArrayList<>();
@@ -119,7 +120,8 @@ public class AuctionService {
         try {
 
             Long auctionId = auctionDto.getAuctionid();
-            String bidPrice = auctionDto.getAuctionbidprice();
+            String auctionbidPrice = auctionDto.getAuctionbidprice();
+            String auctionbidder = auctionDto.getAuctionbidder();
 
             System.out.println("auctionid:" + auctionId);
 
@@ -128,7 +130,9 @@ public class AuctionService {
             if (auctionOptional.isPresent()) {
                 AuctionEntity auctionEntity = auctionOptional.get();
 
-                auctionEntity.setAuctionbidprice(bidPrice);
+                auctionEntity.setAuctionbidprice(auctionbidPrice);
+
+                auctionEntity.setAuctionbidder(auctionbidder);
 
                 auctionRepository.save(auctionEntity);
 

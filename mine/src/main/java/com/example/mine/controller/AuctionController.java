@@ -61,13 +61,15 @@ public class AuctionController {
 
     @GetMapping("/auctionbidprice")
     public ResponseEntity<String> auctionbidprice(@RequestParam(value = "auctionid", required = false) Long auctionid,
-                                                  @RequestParam(value = "auctionbidprice", required = false) String auctionbidprice){
+                                                  @RequestParam(value = "auctionbidprice", required = false) String auctionbidprice,
+                                                  @RequestParam(value = "auctionbidder", required = false) String auctionbidder){
 
         try{
             AuctionDto auctionDto = new AuctionDto();
 
             auctionDto.setAuctionid(auctionid);
             auctionDto.setAuctionbidprice(auctionbidprice);
+            auctionDto.setAuctionbidder(auctionbidder);
 
             auctionservice.updateAuctionBidPrice(auctionDto);
 
