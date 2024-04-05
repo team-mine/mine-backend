@@ -19,4 +19,5 @@ public class AuctionDto {
     private String auctionbidder;
     private String auctiondirectbid;
     private String auctionbidprice;
+    private String auctionfirsturl;
 }

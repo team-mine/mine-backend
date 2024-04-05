@@ -72,8 +72,13 @@ public class AuctionService {
 
             // 이미지 경로 추가
             List<String> imageUrls = new ArrayList<>();
-            for (AuctionImageEntity imageEntity : entity.getAuctionimages()) {
-                imageUrls.add(imageEntity.getAuctionimagepath());
+            for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                imageUrls.add(imageUrl);
+                // 첫 번째 이미지 URL을 auctionfirsturl로 설정
+                if (i == 0) {
+                    auctionDto.setAuctionfirsturl(imageUrl);
+                }
             }
             auctionDto.setAuctionimageurl(imageUrls);
 
