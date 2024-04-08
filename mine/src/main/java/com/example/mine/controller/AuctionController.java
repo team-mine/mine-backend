@@ -44,6 +44,7 @@ public class AuctionController {
             auctionservice.saveAuction(auctiondto);
             return ResponseEntity.ok("글 작성 완료!");
         }catch(Exception e){
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
         }
     }
@@ -62,7 +63,8 @@ public class AuctionController {
     @GetMapping("/auctionbidprice")
     public ResponseEntity<String> auctionbidprice(@RequestParam(value = "auctionid", required = false) Long auctionid,
                                                   @RequestParam(value = "auctionbidprice", required = false) String auctionbidprice,
-                                                  @RequestParam(value = "auctionbidder", required = false) String auctionbidder){
+                                                  @RequestParam(value = "auctionbidder", required = false) String auctionbidder,
+                                                  @RequestParam(value = "auctionbidsnum") Long auctionbidsnum){
 
         try{
             AuctionDto auctionDto = new AuctionDto();
@@ -70,11 +72,13 @@ public class AuctionController {
             auctionDto.setAuctionid(auctionid);
             auctionDto.setAuctionbidprice(auctionbidprice);
             auctionDto.setAuctionbidder(auctionbidder);
+            auctionDto.setAuctionbidsnum(auctionbidsnum);
 
             auctionservice.updateAuctionBidPrice(auctionDto);
 
             return ResponseEntity.ok("경매입찰가 업데이트 완료!");
             }catch(Exception e){
+                e.printStackTrace();
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
         }
     }

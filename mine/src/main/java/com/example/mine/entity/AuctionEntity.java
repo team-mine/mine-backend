@@ -46,4 +46,7 @@ public class AuctionEntity {
 
     @Column(name = "auctionbidprice")
     private String auctionbidprice;
+
+    @Column(name = "auctionbidsnum")
+    private Long auctionbidsnum;
 }
