@@ -138,6 +138,10 @@ public class AuctionService {
                 List<AuctionImageEntity> newImageEntities = saveImages(newImages, auctionEntity);
                 auctionEntity.getAuctionimages().addAll(newImageEntities);
 
+                auctionEntity.setAuctioncategory(auctionDto.getAuctioncategory());
+                auctionEntity.setAuctiontitle(auctionDto.getAuctiontitle());
+                auctionDto.setAuctioncontent(auctionDto.getAuctioncontent());
+
                 auctionRepository.save(auctionEntity);
 
                 return "게시글 수정완료";

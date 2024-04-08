@@ -86,12 +86,16 @@ public class AuctionController {
     @PutMapping("/auctionupdate")
     public ResponseEntity<String> auctionupdate(@RequestParam(value = "auctionid", required = false) Long auctionid,
                                                 @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
+                                                @RequestParam(value = "acutiontitle", required = false) String auctiontitle,
+                                                @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
                                                 @RequestParam(value = "auctionimages", required = false) List<MultipartFile> auctionimages){
         try{
             AuctionDto auctionDto = new AuctionDto();
 
             auctionDto.setAuctionid(auctionid);
             auctionDto.setAuctioncategory(auctioncategory);
+            auctionDto.setAuctiontitle(auctiontitle);
+            auctionDto.setAuctioncontent(auctioncontent);
             auctionDto.setAuctionimage(auctionimages);
 
             auctionservice.updateAuction(auctionDto);
