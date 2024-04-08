@@ -11,7 +11,7 @@ public class AuctionImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long auctionimageid;
 
-    @Column(name = "imagepath")
+    @Column(name = "auctionimagepath")
     private String auctionimagepath;
 
     @ManyToOne

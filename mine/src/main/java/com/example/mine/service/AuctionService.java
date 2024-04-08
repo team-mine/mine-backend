@@ -77,7 +77,6 @@ public class AuctionService {
             for (int i = 0; i < entity.getAuctionimages().size(); i++) {
                 String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
                 imageUrls.add(imageUrl);
-                // 첫 번째 이미지 URL을 auctionfirsturl로 설정
                 if (i == 0) {
                     auctionDto.setAuctionfirsturl(imageUrl);
                 }
@@ -123,6 +122,34 @@ public class AuctionService {
         return imageEntities;
     }
 
+    public String updateAuction(AuctionDto auctionDto){
+        try{
+            Long auctionId = auctionDto.getAuctionid();
+            List<MultipartFile> newImages = auctionDto.getAuctionimage();
+
+            Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionId);
+
+            if (auctionOptional.isPresent()) {
+                AuctionEntity auctionEntity = auctionOptional.get();
+
+                auctionEntity.getAuctionimages().forEach(image -> image.setAuctionentity(null));
+                auctionEntity.getAuctionimages().clear();
+
+                List<AuctionImageEntity> newImageEntities = saveImages(newImages, auctionEntity);
+                auctionEntity.getAuctionimages().addAll(newImageEntities);
+
+                auctionRepository.save(auctionEntity);
+
+                return "게시글 수정완료";
+            }else{
+                return "해당하는 경매가 존재하지 않습니다.";
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return "경매글 수정 실패";
+        }
+    }
+
     public String updateAuctionBidPrice(AuctionDto auctionDto) {
         try {
             Long auctionId = auctionDto.getAuctionid();
@@ -155,4 +182,6 @@ public class AuctionService {
             return "505 예기치 못한 오류입니다";
         }
     }
+
+    public void auctiondelete(Long auctionid){auctionRepository.deleteById(auctionid);}
 }

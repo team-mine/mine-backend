@@ -82,4 +82,35 @@ public class AuctionController {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
         }
     }
+
+    @PutMapping("/auctionupdate")
+    public ResponseEntity<String> auctionupdate(@RequestParam(value = "auctionid", required = false) Long auctionid,
+                                                @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
+                                                @RequestParam(value = "auctionimages", required = false) List<MultipartFile> auctionimages){
+        try{
+            AuctionDto auctionDto = new AuctionDto();
+
+            auctionDto.setAuctionid(auctionid);
+            auctionDto.setAuctioncategory(auctioncategory);
+            auctionDto.setAuctionimage(auctionimages);
+
+            auctionservice.updateAuction(auctionDto);
+
+            return ResponseEntity.ok("게시글 업데이트 완료!");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
+        }
+    }
+
+    @DeleteMapping("/auctiondelete")
+    public ResponseEntity<String> auctiondelete(@RequestParam (value = "auctionid", required = false) Long auctionid){
+        try{
+            auctionservice.auctiondelete(auctionid);
+            return ResponseEntity.ok("게시글 삭제 완료!");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
+        }
+    }
 }
