@@ -60,6 +60,21 @@ public class AuctionController {
         }
     }
 
+    @GetMapping("/auctionboardread")
+    public ResponseEntity<AuctionDto> auctionboardread(@RequestParam(value = "auctionid") Long auctionid){
+        try{
+            AuctionDto auctionDto = new AuctionDto();
+
+            auctionDto.setAuctionid(auctionid);
+
+            AuctionDto auctionlist = auctionservice.getBoardAuction(auctionDto);
+            return ResponseEntity.ok(auctionlist);
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
     @GetMapping("/auctionbidprice")
     public ResponseEntity<String> auctionbidprice(@RequestParam(value = "auctionid", required = false) Long auctionid,
                                                   @RequestParam(value = "auctionbidprice", required = false) String auctionbidprice,

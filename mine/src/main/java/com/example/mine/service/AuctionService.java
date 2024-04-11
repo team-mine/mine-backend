@@ -56,35 +56,79 @@ public class AuctionService {
 
     public List<AuctionDto> getAuction() {
         List<AuctionDto> auctionDtos = new ArrayList<>();
-        List<AuctionEntity> auctionEntities = auctionRepository.findAll();
-        for (AuctionEntity entity : auctionEntities) {
-            AuctionDto auctionDto = new AuctionDto();
-            auctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
-            auctionDto.setAuctiontitle(entity.getAuctiontitle());
-            auctionDto.setAuctioncontent(entity.getAuctioncontent());
-            auctionDto.setAuctioncategory(entity.getAuctioncategory());
-            auctionDto.setAuctionuser(entity.getAuctionuser());
-            auctionDto.setAuctiontime(entity.getAuctiontime());
-            auctionDto.setAuctionendtime(entity.getAuctionendtime());
-            auctionDto.setAuctionprice(entity.getAuctionprice());
-            auctionDto.setAuctionbidprice(entity.getAuctionbidprice());
-            auctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
-            auctionDto.setAuctionbidder(entity.getAuctionbidder());
-            auctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
 
-            // 이미지 경로 추가
-            List<String> imageUrls = new ArrayList<>();
-            for (int i = 0; i < entity.getAuctionimages().size(); i++) {
-                String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
-                imageUrls.add(imageUrl);
-                if (i == 0) {
-                    auctionDto.setAuctionfirsturl(imageUrl);
+        try {
+            List<AuctionEntity> auctionEntities = auctionRepository.findAll();
+            for (AuctionEntity entity : auctionEntities) {
+                AuctionDto auctionDto = new AuctionDto();
+                auctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                auctionDto.setAuctiontitle(entity.getAuctiontitle());
+                auctionDto.setAuctioncontent(entity.getAuctioncontent());
+                auctionDto.setAuctioncategory(entity.getAuctioncategory());
+                auctionDto.setAuctionuser(entity.getAuctionuser());
+                auctionDto.setAuctiontime(entity.getAuctiontime());
+                auctionDto.setAuctionendtime(entity.getAuctionendtime());
+                auctionDto.setAuctionprice(entity.getAuctionprice());
+                auctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                auctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                auctionDto.setAuctionbidder(entity.getAuctionbidder());
+                auctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                // 이미지 경로 추가
+                List<String> imageUrls = new ArrayList<>();
+                for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                    String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                    imageUrls.add(imageUrl);
+                    if (i == 0) {
+                        auctionDto.setAuctionfirsturl(imageUrl);
+                    }
                 }
-            }
-            auctionDto.setAuctionimageurl(imageUrls);
+                auctionDto.setAuctionimageurl(imageUrls);
 
-            auctionDtos.add(auctionDto);
+                auctionDtos.add(auctionDto);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return auctionDtos;
+    }
+
+    public AuctionDto getBoardAuction(AuctionDto auctionDto){
+        AuctionDto auctionDtos = new AuctionDto();
+
+        try {
+            Long auctionId = auctionDto.getAuctionid();
+            Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionId);
+            if (auctionOptional.isPresent()) {
+                AuctionEntity entity = auctionOptional.get();
+
+                auctionDtos.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                auctionDtos.setAuctiontitle(entity.getAuctiontitle());
+                auctionDtos.setAuctioncontent(entity.getAuctioncontent());
+                auctionDtos.setAuctioncategory(entity.getAuctioncategory());
+                auctionDtos.setAuctionuser(entity.getAuctionuser());
+                auctionDtos.setAuctiontime(entity.getAuctiontime());
+                auctionDtos.setAuctionendtime(entity.getAuctionendtime());
+                auctionDtos.setAuctionprice(entity.getAuctionprice());
+                auctionDtos.setAuctionbidprice(entity.getAuctionbidprice());
+                auctionDtos.setAuctiondirectbid(entity.getAuctiondirectbid());
+                auctionDtos.setAuctionbidder(entity.getAuctionbidder());
+                auctionDtos.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                List<String> imageUrls = new ArrayList<>();
+                for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                    String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                    imageUrls.add(imageUrl);
+                    if (i == 0) {
+                        auctionDtos.setAuctionfirsturl(imageUrl);
+                    }
+                }
+                auctionDtos.setAuctionimageurl(imageUrls);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return auctionDtos;
     }
 

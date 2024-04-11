@@ -21,4 +21,5 @@ public class AuctionDto {
     private String auctionbidprice;
     private String auctionfirsturl;
     private Long auctionbidsnum;
+    private String auctionkeyword;
 }
