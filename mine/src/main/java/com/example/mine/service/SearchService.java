@@ -187,7 +187,7 @@ public class SearchService {
 
         try{
             String auctionkeyword = auctionDto.getAuctionkeyword();
-            List<AuctionEntity> auctionEntities = auctionRepository.findByAuctioncontentContainingOrAuctiontitleContaining(auctionkeyword);
+            List<AuctionEntity> auctionEntities = auctionRepository.findByKeywordInContentOrTitle(auctionkeyword);
 
             for (AuctionEntity entity : auctionEntities) {
                 AuctionDto nauctionDto = new AuctionDto();
