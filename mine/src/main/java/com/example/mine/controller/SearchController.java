@@ -82,7 +82,7 @@ public class SearchController {
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctionkeyword(auctionkeyword);
 
-            List<AuctionDto> auctionlist = searchservice.contentget(auctionDto);
+            List<AuctionDto> auctionlist = searchservice.content_and_titleget(auctionDto);
             return ResponseEntity.ok(auctionlist);
         }catch(Exception e){
             e.printStackTrace();
