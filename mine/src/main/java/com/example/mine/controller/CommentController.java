@@ -51,15 +51,20 @@ public class CommentController {
     }
 
     @PutMapping("/comment/update/{commentId}")
-    public String updateComment(@PathVariable (name = "commentId") Long commentId, @RequestBody CommentDto commentDto) {
-        commentService.updateComment(commentId, commentDto);
+    public String updateComment(@PathVariable (name = "commentid") Long commentid,
+                                @RequestBody CommentDto commentDto) {
+        commentService.updateComment(commentid, commentDto);
         return "댓글이 성공적으로 수정되었습니다.";
     }
 
     @DeleteMapping("/comment/delete/{commentId}")
-    public String deleteComment(@PathVariable ( name = "commentId") Long commentId) {
-        System.out.println("아이디:" + commentId);
-        commentService.deleteComment(commentId);
+    public String deleteComment(@PathVariable(name = "commentid") Long commentid,
+                                @RequestParam(name = "username") String username){
+        CommentDto commentDto = new CommentDto();
+        commentDto.setCommentid(commentid);
+        commentDto.setUsername(username);
+
+        commentService.deleteComment(commentDto);
         return "댓글이 성공적으로 삭제되었습니다.";
     }
 }

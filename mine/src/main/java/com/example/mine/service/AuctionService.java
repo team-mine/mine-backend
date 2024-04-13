@@ -176,6 +176,10 @@ public class AuctionService {
             if (auctionOptional.isPresent()) {
                 AuctionEntity auctionEntity = auctionOptional.get();
 
+                if (!auctionEntity.getAuctionuser().equals(auctionDto.getAuctionuser())) {
+                    return "해당 경매글의 작성자가 아닙니다.";
+                }
+
                 auctionEntity.getAuctionimages().forEach(image -> image.setAuctionentity(null));
                 auctionEntity.getAuctionimages().clear();
 
@@ -231,5 +235,25 @@ public class AuctionService {
         }
     }
 
-    public void auctiondelete(Long auctionid){auctionRepository.deleteById(auctionid);}
+    public String auctiondelete(AuctionDto auctionDto){
+        try {
+            Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionDto.getAuctionid());
+
+            if (auctionOptional.isPresent()) {
+                AuctionEntity auctionEntity = auctionOptional.get();
+
+                if (!auctionEntity.getAuctionuser().equals(auctionDto.getAuctionuser())) {
+                    return "해당 경매글의 작성자가 아닙니다. 삭제할 수 없습니다.";
+                }
+
+                auctionRepository.deleteById(auctionDto.getAuctionid());
+                return "게시글 삭제완료";
+            } else {
+                return "해당하는 경매가 존재하지 않습니다.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "경매글 삭제 실패";
+        }
+    }
 }

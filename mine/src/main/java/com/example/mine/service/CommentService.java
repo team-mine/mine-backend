@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentService {
@@ -33,15 +34,36 @@ public class CommentService {
         return commentRepository.findByboardid(boardId);
     }
 
-    public void updateComment(Long commentId, CommentDto commentDto) {
+    public String updateComment(Long commentId, CommentDto commentDto) {
         CommentEntity existingComment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new RuntimeException("댓글을 찾을 수 없습니다."));
-
+        if (!existingComment.getUsername().equals(commentDto.getUsername())) {
+            return "댓글의 작성자가 아닙니다. 수정할 수 없습니다.";
+        }
         existingComment.setContent(commentDto.getContent());
         commentRepository.save(existingComment);
+        return "댓글 수정 완료!";
     }
 
-    public void deleteComment(Long commentId) {
-        commentRepository.deleteById(commentId);
+    public String deleteComment(CommentDto commentDto) {
+        try {
+            Optional<CommentEntity> commentOptional = commentRepository.findById(commentDto.getCommentid());
+
+            if (commentOptional.isPresent()) {
+                CommentEntity existingComment = commentOptional.get();
+
+                if (!existingComment.getUsername().equals(commentDto.getUsername())) {
+                    return "댓글의 작성자가 아닙니다. 삭제할 수 없습니다.";
+                }
+
+                commentRepository.deleteById(commentDto.getCommentid());
+                return "댓글 삭제완료";
+            } else {
+                return "해당하는 댓글이 존재하지 않습니다.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "댓글 삭제 실패";
+        }
     }
 }

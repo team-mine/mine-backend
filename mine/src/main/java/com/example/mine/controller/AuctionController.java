@@ -103,7 +103,8 @@ public class AuctionController {
                                                 @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
                                                 @RequestParam(value = "acutiontitle", required = false) String auctiontitle,
                                                 @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
-                                                @RequestParam(value = "auctionimages", required = false) List<MultipartFile> auctionimages){
+                                                @RequestParam(value = "auctionimages", required = false) List<MultipartFile> auctionimages,
+                                                @RequestParam(value = "auctionuser", required = false) String auctionuser){
         try{
             AuctionDto auctionDto = new AuctionDto();
 
@@ -112,10 +113,11 @@ public class AuctionController {
             auctionDto.setAuctiontitle(auctiontitle);
             auctionDto.setAuctioncontent(auctioncontent);
             auctionDto.setAuctionimage(auctionimages);
+            auctionDto.setAuctionuser(auctionuser);
 
-            auctionservice.updateAuction(auctionDto);
+            String auctionresponse = auctionservice.updateAuction(auctionDto);
 
-            return ResponseEntity.ok("게시글 업데이트 완료!");
+            return ResponseEntity.ok(auctionresponse);
         }catch(Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
@@ -123,10 +125,15 @@ public class AuctionController {
     }
 
     @DeleteMapping("/auctiondelete")
-    public ResponseEntity<String> auctiondelete(@RequestParam (value = "auctionid", required = false) Long auctionid){
+    public ResponseEntity<String> auctiondelete(@RequestParam(value = "auctionid", required = false) Long auctionid,
+                                                @RequestParam(value = "auctionuser", required = false) String auctionuser){
         try{
-            auctionservice.auctiondelete(auctionid);
-            return ResponseEntity.ok("게시글 삭제 완료!");
+            AuctionDto auctionDto = new AuctionDto();
+            auctionDto.setAuctionid(auctionid);
+            auctionDto.setAuctionuser(auctionuser);
+
+            String auctionresponse = auctionservice.auctiondelete(auctionDto);
+            return ResponseEntity.ok(auctionresponse);
         }catch(Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
