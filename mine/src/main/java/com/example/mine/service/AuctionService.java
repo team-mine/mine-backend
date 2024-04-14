@@ -164,10 +164,10 @@ public class AuctionService {
         try {
             return oldImageNames.stream()
                     .map(imageName -> {
-                        AuctionImageEntity fbImageEntity = new AuctionImageEntity();
-                        fbImageEntity.setAuctionimagepath(imageName);
-                        fbImageEntity.setAuctionentity(auctionEntity);
-                        return fbImageEntity;
+                        AuctionImageEntity auctionImageEntity = new AuctionImageEntity();
+                        auctionImageEntity.setAuctionimagepath(imageName);
+                        auctionImageEntity.setAuctionentity(auctionEntity);
+                        return auctionImageEntity;
                     })
                     .collect(Collectors.toList());
         } catch (Exception e) {
