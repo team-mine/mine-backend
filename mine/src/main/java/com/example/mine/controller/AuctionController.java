@@ -105,7 +105,7 @@ public class AuctionController {
                                                 @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
                                                 @RequestParam(value = "auctionimages", required = false) List<MultipartFile> auctionimages,
                                                 @RequestParam(value = "auctionuser", required = false) String auctionuser,
-                                                @RequestParam(value = "auctionoldimg") List<String> auctionoldimg){
+                                                @RequestParam(value = "auctionoldimg", required = false) List<String> auctionoldimg){
         try{
             AuctionDto auctionDto = new AuctionDto();
 
