@@ -57,7 +57,7 @@ public class CommentController {
         return "댓글이 성공적으로 수정되었습니다.";
     }
 
-    @DeleteMapping("/comment/delete/{commentid}")
+        @DeleteMapping("/comment/delete/{commentid}")
     public String deleteComment(@PathVariable(name = "commentid") Long commentid,
                                 @RequestParam(name = "username") String username){
         CommentDto commentDto = new CommentDto();

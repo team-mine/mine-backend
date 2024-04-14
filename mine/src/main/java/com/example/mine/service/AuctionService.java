@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AuctionService {
@@ -144,16 +145,12 @@ public class AuctionService {
                         uploadPath.mkdirs();
                     }
 
-                    // 이미지 파일 이름 설정
                     String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
 
-                    // 이미지 파일 경로 설정
                     Path filePath = Paths.get(uploadPath.getAbsolutePath() + File.separator + fileName);
 
-                    // 이미지 파일 저장
                     Files.write(filePath, image.getBytes());
 
-                    // 이미지 엔티티 생성 및 추가
                     AuctionImageEntity imageEntity = new AuctionImageEntity();
                     imageEntity.setAuctionimagepath(uploadDir + fileName);
                     imageEntity.setAuctionentity(auctionEntity); // AuctionEntity 설정
@@ -166,10 +163,22 @@ public class AuctionService {
         return imageEntities;
     }
 
+    private List<AuctionImageEntity> saveoldImages(List<String> oldImageNames, AuctionEntity auctionEntity) {
+        return oldImageNames.stream()
+                .map(imageName -> {
+                    AuctionImageEntity fbImageEntity = new AuctionImageEntity();
+                    fbImageEntity.setAuctionimagepath(imageName);
+                    fbImageEntity.setAuctionentity(auctionEntity);
+                    return fbImageEntity;
+                })
+                .collect(Collectors.toList());
+    }
+
     public String updateAuction(AuctionDto auctionDto){
         try{
             Long auctionId = auctionDto.getAuctionid();
             List<MultipartFile> newImages = auctionDto.getAuctionimage();
+            List<String> oldImages = auctionDto.getAuctionoldimg();
 
             Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionId);
 
@@ -183,12 +192,15 @@ public class AuctionService {
                 auctionEntity.getAuctionimages().forEach(image -> image.setAuctionentity(null));
                 auctionEntity.getAuctionimages().clear();
 
+                List<AuctionImageEntity>oldImageEntites = saveoldImages(oldImages, auctionEntity);
+                auctionEntity.getAuctionimages().addAll(oldImageEntites);
+
                 List<AuctionImageEntity> newImageEntities = saveImages(newImages, auctionEntity);
                 auctionEntity.getAuctionimages().addAll(newImageEntities);
 
                 auctionEntity.setAuctioncategory(auctionDto.getAuctioncategory());
                 auctionEntity.setAuctiontitle(auctionDto.getAuctiontitle());
-                auctionDto.setAuctioncontent(auctionDto.getAuctioncontent());
+                auctionEntity.setAuctioncontent(auctionDto.getAuctioncontent());
 
                 auctionRepository.save(auctionEntity);
 
