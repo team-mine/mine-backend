@@ -10,6 +10,7 @@ public class AuctionDto {
     private String auctiontitle;
     private String auctioncontent;
     private String auctionuser;
+    private String auctionusername;
     private String auctiontime;
     private String auctioncategory;
     private String auctionprice;

@@ -23,6 +23,9 @@ public class AuctionEntity {
     @Column(name = "auctionuser")
     private String auctionuser;
 
+    @Column(name = "auctionusername")
+    private  String auctionusername;
+
     @Column(name = "auctiontime")
     private String auctiontime;
 

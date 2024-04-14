@@ -3,7 +3,9 @@ package com.example.mine.service;
 import com.example.mine.dto.AuctionDto;
 import com.example.mine.entity.AuctionEntity;
 import com.example.mine.entity.AuctionImageEntity;
+import com.example.mine.entity.UserEntity;
 import com.example.mine.repository.AuctionRepository;
+import com.example.mine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,10 +22,12 @@ import java.util.stream.Collectors;
 @Service
 public class AuctionService {
     private final AuctionRepository auctionRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AuctionService(AuctionRepository auctionRepository) {
+    public AuctionService(AuctionRepository auctionRepository, UserRepository userRepository) {
         this.auctionRepository = auctionRepository;
+        this.userRepository = userRepository;
     }
 
     public String saveAuction(AuctionDto auctionDto) {
@@ -36,15 +40,27 @@ public class AuctionService {
             auctionEntity.setAuctionendtime(auctionDto.getAuctionendtime());
             auctionEntity.setAuctionprice(auctionDto.getAuctionprice());
             auctionEntity.setAuctionuser(auctionDto.getAuctionuser());
+            auctionEntity.setAuctionusername(auctionDto.getAuctionusername());
             auctionEntity.setAuctionbidprice(auctionDto.getAuctionbidprice());
             auctionEntity.setAuctiondirectbid(auctionDto.getAuctiondirectbid());
             auctionEntity.setAuctionbidsnum(0L);
 
-            // 이미지 엔티티 저장
             List<AuctionImageEntity> imageEntities = saveImages(auctionDto.getAuctionimage(), auctionEntity);
             auctionEntity.setAuctionimages(imageEntities);
 
             auctionRepository.save(auctionEntity);
+
+            Optional<UserEntity> userOptional = userRepository.findByUser(auctionDto.getAuctionuser());
+            if (userOptional.isPresent()) {
+                UserEntity userEntity = userOptional.get();
+
+                userEntity.setWriteid(auctionDto.getAuctionid());
+
+                userRepository.save(userEntity);
+            }else{
+                return "유저가 존재하지 않습니다.";
+            }
+
             return "글 작성 완료!";
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,6 +80,7 @@ public class AuctionService {
                 auctionDto.setAuctioncontent(entity.getAuctioncontent());
                 auctionDto.setAuctioncategory(entity.getAuctioncategory());
                 auctionDto.setAuctionuser(entity.getAuctionuser());
+                auctionDto.setAuctionusername(entity.getAuctionusername());
                 auctionDto.setAuctiontime(entity.getAuctiontime());
                 auctionDto.setAuctionendtime(entity.getAuctionendtime());
                 auctionDto.setAuctionprice(entity.getAuctionprice());
@@ -227,8 +244,6 @@ public class AuctionService {
             Long auctionbidsnum = auctionDto.getAuctionbidsnum();
             auctionbidsnum++;
 
-            System.out.println("auctionid:" + auctionId);
-
             Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionId);
 
             if (auctionOptional.isPresent()) {
@@ -241,11 +256,23 @@ public class AuctionService {
                 auctionEntity.setAuctionbidsnum(auctionbidsnum);
 
                 auctionRepository.save(auctionEntity);
-
-                return "경매 입찰가 업데이트 완료";
             } else {
                 return "해당하는 경매가 존재하지 않습니다";
             }
+
+            Optional<UserEntity> userOptional = userRepository.findByUser(auctionbidder);
+            if (userOptional.isPresent()) {
+                UserEntity userEntity = userOptional.get();
+
+                userEntity.setBidid(auctionId);
+
+                userRepository.save(userEntity);
+                
+                return "입찰 완료!";
+            }else{
+                return "유저가 존재하지 않습니다.";
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return "505 예기치 못한 오류입니다";
@@ -261,6 +288,18 @@ public class AuctionService {
 
                 if (!auctionEntity.getAuctionuser().equals(auctionDto.getAuctionuser())) {
                     return "해당 경매글의 작성자가 아닙니다. 삭제할 수 없습니다.";
+                }
+
+                if(auctionEntity.getAuctionbidsnum() >= 1){
+                    return "입찰자가 존재하기 때문에 삭제할 수 없습니다.";
+                }
+
+                List<AuctionImageEntity> imagesToDelete = auctionEntity.getAuctionimages();
+                for (AuctionImageEntity imageEntity : imagesToDelete) {
+                    File file = new File(imageEntity.getAuctionimagepath());
+                    if (file.exists()) {
+                        file.delete();
+                    }
                 }
 
                 auctionRepository.deleteById(auctionDto.getAuctionid());

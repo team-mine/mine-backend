@@ -25,6 +25,7 @@ public class AuctionController {
                                                @RequestParam(value = "auctiontitle", required = false) String auctiontitle,
                                                @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
                                                @RequestParam(value = "auctionuser", required = false) String auctionuser,
+                                               @RequestParam(value = "auctionusername", required = false)String auctionusername,
                                                @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
                                                @RequestParam(value = "auctionprice", required = false) String auctionprice,
                                                @RequestParam(value = "auctionendtime", required = false) String auctionendtime,
@@ -35,6 +36,7 @@ public class AuctionController {
             auctiondto.setAuctiontitle(auctiontitle);
             auctiondto.setAuctioncontent(auctioncontent);
             auctiondto.setAuctionuser(auctionuser);
+            auctiondto.setAuctionusername(auctionusername);
             auctiondto.setAuctioncategory(auctioncategory);
             auctiondto.setAuctionprice(auctionprice);
             auctiondto.setAuctionendtime(auctionendtime);
@@ -49,7 +51,7 @@ public class AuctionController {
         }
     }
 
-    @GetMapping("/auctionread")
+    @PostMapping("/auctionread")
     public ResponseEntity<List<AuctionDto>> auctionread() {
         try {
             List<AuctionDto> auctionlist = auctionservice.getAuction();
@@ -60,7 +62,7 @@ public class AuctionController {
         }
     }
 
-    @GetMapping("/auctionboardread")
+    @PostMapping("/auctionboardread")
     public ResponseEntity<AuctionDto> auctionboardread(@RequestParam(value = "auctionid") Long auctionid){
         try{
             AuctionDto auctionDto = new AuctionDto();
