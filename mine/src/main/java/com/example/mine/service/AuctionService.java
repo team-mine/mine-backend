@@ -195,8 +195,10 @@ public class AuctionService {
                 auctionEntity.getAuctionimages().forEach(image -> image.setAuctionentity(null));
                 auctionEntity.getAuctionimages().clear();
 
-                List<AuctionImageEntity>oldImageEntites = saveoldImages(oldImages, auctionEntity);
-                auctionEntity.getAuctionimages().addAll(oldImageEntites);
+                if (oldImages != null && !oldImages.isEmpty()) {
+                    List<AuctionImageEntity> oldImageEntities = saveoldImages(oldImages, auctionEntity);
+                    auctionEntity.getAuctionimages().addAll(oldImageEntities);
+                }
 
                 List<AuctionImageEntity> newImageEntities = saveImages(newImages, auctionEntity);
                 auctionEntity.getAuctionimages().addAll(newImageEntities);
