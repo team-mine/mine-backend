@@ -14,10 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -164,14 +161,20 @@ public class AuctionService {
     }
 
     private List<AuctionImageEntity> saveoldImages(List<String> oldImageNames, AuctionEntity auctionEntity) {
-        return oldImageNames.stream()
-                .map(imageName -> {
-                    AuctionImageEntity fbImageEntity = new AuctionImageEntity();
-                    fbImageEntity.setAuctionimagepath(imageName);
-                    fbImageEntity.setAuctionentity(auctionEntity);
-                    return fbImageEntity;
-                })
-                .collect(Collectors.toList());
+        try {
+            return oldImageNames.stream()
+                    .map(imageName -> {
+                        AuctionImageEntity fbImageEntity = new AuctionImageEntity();
+                        fbImageEntity.setAuctionimagepath(imageName);
+                        fbImageEntity.setAuctionentity(auctionEntity);
+                        return fbImageEntity;
+                    })
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            // 예외 발생 시 로깅
+            System.err.println("Error while creating AuctionImageEntity: " + e.getMessage());
+            return Collections.emptyList();
+        }
     }
 
     public String updateAuction(AuctionDto auctionDto){
