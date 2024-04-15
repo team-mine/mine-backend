@@ -63,11 +63,12 @@ public class AuctionController {
     }
 
     @PostMapping("/auctionboardread")
-    public ResponseEntity<AuctionDto> auctionboardread(@RequestParam(value = "auctionid") Long auctionid){
+    public ResponseEntity<AuctionDto> auctionboardread(@RequestParam(value = "auctionid") String auctionid){
         try{
+            long lauctionid = Long.parseLong(auctionid);
             AuctionDto auctionDto = new AuctionDto();
 
-            auctionDto.setAuctionid(auctionid);
+            auctionDto.setAuctionid(lauctionid);
 
             AuctionDto auctionlist = auctionservice.getBoardAuction(auctionDto);
             return ResponseEntity.ok(auctionlist);
@@ -77,16 +78,18 @@ public class AuctionController {
         }
     }
 
-    @GetMapping("/auctionbidprice")
-    public ResponseEntity<String> auctionbidprice(@RequestParam(value = "auctionid", required = false) Long auctionid,
+    @PostMapping("/auctionbidprice")
+    public ResponseEntity<String> auctionbidprice(@RequestParam(value = "auctionid", required = false) String auctionid,
                                                   @RequestParam(value = "auctionbidprice", required = false) String auctionbidprice,
                                                   @RequestParam(value = "auctionbidder", required = false) String auctionbidder,
                                                   @RequestParam(value = "auctionbidsnum") Long auctionbidsnum){
 
         try{
+            long lauctionid = Long.parseLong(auctionid);
+
             AuctionDto auctionDto = new AuctionDto();
 
-            auctionDto.setAuctionid(auctionid);
+            auctionDto.setAuctionid(lauctionid);
             auctionDto.setAuctionbidprice(auctionbidprice);
             auctionDto.setAuctionbidder(auctionbidder);
             auctionDto.setAuctionbidsnum(auctionbidsnum);
@@ -101,7 +104,7 @@ public class AuctionController {
     }
 
     @PutMapping("/auctionupdate")
-    public ResponseEntity<String> auctionupdate(@RequestParam(value = "auctionid", required = false) Long auctionid,
+    public ResponseEntity<String> auctionupdate(@RequestParam(value = "auctionid", required = false) String auctionid,
                                                 @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
                                                 @RequestParam(value = "acutiontitle", required = false) String auctiontitle,
                                                 @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
@@ -109,9 +112,10 @@ public class AuctionController {
                                                 @RequestParam(value = "auctionuser", required = false) String auctionuser,
                                                 @RequestParam(value = "auctionoldimg", required = false) List<String> auctionoldimg){
         try{
+            long lauctionid = Long.parseLong(auctionid);
             AuctionDto auctionDto = new AuctionDto();
 
-            auctionDto.setAuctionid(auctionid);
+            auctionDto.setAuctionid(lauctionid);
             auctionDto.setAuctioncategory(auctioncategory);
             auctionDto.setAuctiontitle(auctiontitle);
             auctionDto.setAuctioncontent(auctioncontent);
@@ -129,11 +133,13 @@ public class AuctionController {
     }
 
     @DeleteMapping("/auctiondelete")
-    public ResponseEntity<String> auctiondelete(@RequestParam(value = "auctionid", required = false) Long auctionid,
+    public ResponseEntity<String> auctiondelete(@RequestParam(value = "auctionid", required = false) String auctionid,
                                                 @RequestParam(value = "auctionuser", required = false) String auctionuser){
         try{
+            long lauctionid = Long.parseLong(auctionid);
+
             AuctionDto auctionDto = new AuctionDto();
-            auctionDto.setAuctionid(auctionid);
+            auctionDto.setAuctionid(lauctionid);
             auctionDto.setAuctionuser(auctionuser);
 
             String auctionresponse = auctionservice.auctiondelete(auctionDto);

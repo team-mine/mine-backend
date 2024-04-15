@@ -22,12 +22,13 @@ public class CommentController {
     }
 
     @PostMapping("/comment/write")
-    public ResponseEntity<String> write_comment(@RequestParam(value = "boardid")Long boardid,
+    public ResponseEntity<String> write_comment(@RequestParam(value = "boardid")String boardid,
                                                 @RequestParam(value = "content")String content,
                                                 @RequestParam(value = "username")String username) {
         try {
+            Long lboardid = Long.parseLong(boardid);
             CommentDto commentDto = new CommentDto();
-            commentDto.setBoardid(boardid);
+            commentDto.setBoardid(lboardid);
             commentDto.setContent(content);
             commentDto.setUsername(username);
             commentDto.setDatetime(LocalDateTime.now().toString());
@@ -40,9 +41,10 @@ public class CommentController {
     }
 
     @PostMapping("/comment/read")
-    public ResponseEntity<List<CommentEntity>> getComments(@RequestParam (value = "boardid")Long boardid){
+    public ResponseEntity<List<CommentEntity>> getComments(@RequestParam (value = "boardid")String boardid){
         try {
-            List<CommentEntity> commentlist = commentService.getComments(boardid);
+            Long lboardid = Long.parseLong(boardid);
+            List<CommentEntity> commentlist = commentService.getComments(lboardid);
             return ResponseEntity.ok(commentlist);
         }catch(Exception e){
             e.printStackTrace();
@@ -51,17 +53,19 @@ public class CommentController {
     }
 
     @PutMapping("/comment/update/{commentid}")
-    public String updateComment(@PathVariable (name = "commentid") Long commentid,
+    public String updateComment(@PathVariable (name = "commentid") String commentid,
                                 @RequestBody CommentDto commentDto) {
-        commentService.updateComment(commentid, commentDto);
+        long lcommentid = Long.parseLong(commentid);
+        commentService.updateComment(lcommentid, commentDto);
         return "댓글이 성공적으로 수정되었습니다.";
     }
 
         @DeleteMapping("/comment/delete/{commentid}")
-    public String deleteComment(@PathVariable(name = "commentid") Long commentid,
+    public String deleteComment(@PathVariable(name = "commentid") String commentid,
                                 @RequestParam(name = "username") String username){
+            long lcommentid = Long.parseLong(commentid);
         CommentDto commentDto = new CommentDto();
-        commentDto.setCommentid(commentid);
+        commentDto.setCommentid(lcommentid);
         commentDto.setUsername(username);
 
         commentService.deleteComment(commentDto);
