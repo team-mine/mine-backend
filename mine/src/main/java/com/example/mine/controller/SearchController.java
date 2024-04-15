@@ -92,10 +92,12 @@ public class SearchController {
     }
 
     @GetMapping("/bothsearch")
-    public ResponseEntity<List<AuctionDto>> bothsaerch(@RequestParam(value = "auctionkeyword")String auctionkeyword){
+    public ResponseEntity<List<AuctionDto>> bothsaerch(@RequestParam(value = "auctionkeyword")String auctionkeyword,
+                                                       @RequestParam(value = "auctioncategory")String auctioncategory){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctionkeyword(auctionkeyword);
+            auctionDto.setAuctioncategory(auctioncategory);
 
             List<AuctionDto> auctionlist = searchservice.content_and_titleget(auctionDto);
             return ResponseEntity.ok(auctionlist);
