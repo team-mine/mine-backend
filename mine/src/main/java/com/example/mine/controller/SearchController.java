@@ -21,12 +21,21 @@ public class SearchController {
     }
 
     @GetMapping("/categorysearch")
-    public ResponseEntity<List<AuctionDto>> categorysearch(@RequestParam(value = "auctioncategory") String auctioncategory){
+    public ResponseEntity<List<AuctionDto>> categorysearch(@RequestParam(value = "auctioncategory") String auctioncategory,
+                                                           @RequestParam(value = "auctionuser", required = false) String auctionuser,
+                                                           @RequestParam(value = "auctiontitle", required = false) String auctiontitle,
+                                                           @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
+                                                           @RequestParam(value = "auctionkeyword", required = false) String auctionkeyword){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctioncategory(auctioncategory);
+            auctionDto.setAuctionuser(auctionuser);
+            auctionDto.setAuctiontitle(auctiontitle);
+            auctionDto.setAuctioncontent(auctioncontent);
+            auctionDto.setAuctionkeyword(auctionkeyword);
 
             List<AuctionDto> auctionlist = searchservice.Categoryget(auctionDto);
+
             return ResponseEntity.ok(auctionlist);
         }catch(Exception e){
             e.printStackTrace();
@@ -35,10 +44,12 @@ public class SearchController {
     }
 
     @GetMapping("/usernamesearch")
-    public ResponseEntity<List<AuctionDto>> usernamesaerch(@RequestParam(value = "auctionuser")String auctionuser){
+    public ResponseEntity<List<AuctionDto>> usernamesaerch(@RequestParam(value = "auctionuser")String auctionuser,
+                                                           @RequestParam(value = "auctioncategory", required = false)String auctioncategory){
         try {
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctionuser(auctionuser);
+            auctionDto.setAuctioncategory(auctioncategory);
 
             List<AuctionDto> auctionlist = searchservice.usernameget(auctionDto);
             return ResponseEntity.ok(auctionlist);
@@ -49,10 +60,12 @@ public class SearchController {
     }
 
     @GetMapping("/titlesearch")
-    public ResponseEntity<List<AuctionDto>> titlesearch(@RequestParam(value = "auctiontitle")String auctiontitle){
+    public ResponseEntity<List<AuctionDto>> titlesearch(@RequestParam(value = "auctiontitle")String auctiontitle,
+                                                        @RequestParam(value = "auctioncategory", required = false)String auctioncategory){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctiontitle(auctiontitle);
+            auctionDto.setAuctioncategory(auctioncategory);
 
             List<AuctionDto> auctionlist = searchservice.titleget(auctionDto);
             return ResponseEntity.ok(auctionlist);
@@ -63,10 +76,12 @@ public class SearchController {
     }
 
     @GetMapping("/contentsearch")
-    public ResponseEntity<List<AuctionDto>> contentsaerch(@RequestParam(value = "auctioncontent")String auctioncontent){
+    public ResponseEntity<List<AuctionDto>> contentsaerch(@RequestParam(value = "auctioncontent")String auctioncontent,
+                                                          @RequestParam(value = "auctioncategory", required = false)String auctioncategory){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctioncontent(auctioncontent);
+            auctionDto.setAuctioncategory(auctioncategory);
 
             List<AuctionDto> auctionlist = searchservice.contentget(auctionDto);
             return ResponseEntity.ok(auctionlist);

@@ -26,32 +26,147 @@ public class SearchService {
             List<AuctionEntity> auctionEntities = auctionRepository.findByAuctioncategoryContaining(auctioncategory);
 
             for (AuctionEntity entity : auctionEntities) {
-                AuctionDto nauctionDto = new AuctionDto();
-                nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
-                nauctionDto.setAuctiontitle(entity.getAuctiontitle());
-                nauctionDto.setAuctioncontent(entity.getAuctioncontent());
-                nauctionDto.setAuctioncategory(entity.getAuctioncategory());
-                nauctionDto.setAuctionuser(entity.getAuctionuser());
-                nauctionDto.setAuctiontime(entity.getAuctiontime());
-                nauctionDto.setAuctionendtime(entity.getAuctionendtime());
-                nauctionDto.setAuctionprice(entity.getAuctionprice());
-                nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
-                nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
-                nauctionDto.setAuctionbidder(entity.getAuctionbidder());
-                nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                if (auctionDto.getAuctiontitle() != null && auctionDto.getAuctiontitle().equals(entity.getAuctiontitle())) {
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
 
-                // 이미지 경로 추가
-                List<String> imageUrls = new ArrayList<>();
-                for (int i = 0; i < entity.getAuctionimages().size(); i++) {
-                    String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
-                    imageUrls.add(imageUrl);
-                    if (i == 0) {
-                        nauctionDto.setAuctionfirsturl(imageUrl);
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
                     }
-                }
-                nauctionDto.setAuctionimageurl(imageUrls);
+                    nauctionDto.setAuctionimageurl(imageUrls);
 
-                auctionDtos.add(nauctionDto);
+                    auctionDtos.add(nauctionDto);
+                }else if(auctionDto.getAuctionuser() != null && auctionDto.getAuctionuser().equals(entity.getAuctionuser())){
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }else if(auctionDto.getAuctioncontent() != null && auctionDto.getAuctioncontent().equals(entity.getAuctioncontent())){
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }else if(auctionDto.getAuctionkeyword() != null && auctionDto.getAuctiontitle().equals(entity.getAuctiontitle()) && auctionDto.getAuctioncontent().equals(entity.getAuctioncontent())){
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }else{
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -67,32 +182,63 @@ public class SearchService {
             List<AuctionEntity> auctionEntities = auctionRepository.findByAuctionuserContaining(auctionuser);
 
             for (AuctionEntity entity : auctionEntities) {
-                AuctionDto nauctionDto = new AuctionDto();
-                nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
-                nauctionDto.setAuctiontitle(entity.getAuctiontitle());
-                nauctionDto.setAuctioncontent(entity.getAuctioncontent());
-                nauctionDto.setAuctioncategory(entity.getAuctioncategory());
-                nauctionDto.setAuctionuser(entity.getAuctionuser());
-                nauctionDto.setAuctiontime(entity.getAuctiontime());
-                nauctionDto.setAuctionendtime(entity.getAuctionendtime());
-                nauctionDto.setAuctionprice(entity.getAuctionprice());
-                nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
-                nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
-                nauctionDto.setAuctionbidder(entity.getAuctionbidder());
-                nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                if (auctionDto.getAuctioncategory() != null && auctionDto.getAuctioncategory().equals(entity.getAuctioncategory())) {
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
 
-                // 이미지 경로 추가
-                List<String> imageUrls = new ArrayList<>();
-                for (int i = 0; i < entity.getAuctionimages().size(); i++) {
-                    String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
-                    imageUrls.add(imageUrl);
-                    if (i == 0) {
-                        nauctionDto.setAuctionfirsturl(imageUrl);
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
                     }
-                }
-                nauctionDto.setAuctionimageurl(imageUrls);
+                    nauctionDto.setAuctionimageurl(imageUrls);
 
-                auctionDtos.add(nauctionDto);
+                    auctionDtos.add(nauctionDto);
+                }else{
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -108,32 +254,63 @@ public class SearchService {
             List<AuctionEntity> auctionEntities = auctionRepository.findByAuctiontitleContaining(auctiontitle);
 
             for (AuctionEntity entity : auctionEntities) {
-                AuctionDto nauctionDto = new AuctionDto();
-                nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
-                nauctionDto.setAuctiontitle(entity.getAuctiontitle());
-                nauctionDto.setAuctioncontent(entity.getAuctioncontent());
-                nauctionDto.setAuctioncategory(entity.getAuctioncategory());
-                nauctionDto.setAuctionuser(entity.getAuctionuser());
-                nauctionDto.setAuctiontime(entity.getAuctiontime());
-                nauctionDto.setAuctionendtime(entity.getAuctionendtime());
-                nauctionDto.setAuctionprice(entity.getAuctionprice());
-                nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
-                nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
-                nauctionDto.setAuctionbidder(entity.getAuctionbidder());
-                nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                if (auctionDto.getAuctioncategory() != null && auctionDto.getAuctioncategory().equals(entity.getAuctioncategory())) {
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
 
-                // 이미지 경로 추가
-                List<String> imageUrls = new ArrayList<>();
-                for (int i = 0; i < entity.getAuctionimages().size(); i++) {
-                    String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
-                    imageUrls.add(imageUrl);
-                    if (i == 0) {
-                        nauctionDto.setAuctionfirsturl(imageUrl);
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
                     }
-                }
-                nauctionDto.setAuctionimageurl(imageUrls);
+                    nauctionDto.setAuctionimageurl(imageUrls);
 
-                auctionDtos.add(nauctionDto);
+                    auctionDtos.add(nauctionDto);
+                }else{
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -149,32 +326,63 @@ public class SearchService {
             List<AuctionEntity> auctionEntities = auctionRepository.findByAuctioncontentContaining(auctioncontent);
 
             for (AuctionEntity entity : auctionEntities) {
-                AuctionDto nauctionDto = new AuctionDto();
-                nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
-                nauctionDto.setAuctiontitle(entity.getAuctiontitle());
-                nauctionDto.setAuctioncontent(entity.getAuctioncontent());
-                nauctionDto.setAuctioncategory(entity.getAuctioncategory());
-                nauctionDto.setAuctionuser(entity.getAuctionuser());
-                nauctionDto.setAuctiontime(entity.getAuctiontime());
-                nauctionDto.setAuctionendtime(entity.getAuctionendtime());
-                nauctionDto.setAuctionprice(entity.getAuctionprice());
-                nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
-                nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
-                nauctionDto.setAuctionbidder(entity.getAuctionbidder());
-                nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                if (auctionDto.getAuctioncategory() != null && auctionDto.getAuctioncategory().equals(entity.getAuctioncategory())) {
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
 
-                // 이미지 경로 추가
-                List<String> imageUrls = new ArrayList<>();
-                for (int i = 0; i < entity.getAuctionimages().size(); i++) {
-                    String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
-                    imageUrls.add(imageUrl);
-                    if (i == 0) {
-                        nauctionDto.setAuctionfirsturl(imageUrl);
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
                     }
-                }
-                nauctionDto.setAuctionimageurl(imageUrls);
+                    nauctionDto.setAuctionimageurl(imageUrls);
 
-                auctionDtos.add(nauctionDto);
+                    auctionDtos.add(nauctionDto);
+                }else{
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -190,32 +398,63 @@ public class SearchService {
             List<AuctionEntity> auctionEntities = auctionRepository.findByKeywordInContentOrTitle(auctionkeyword);
 
             for (AuctionEntity entity : auctionEntities) {
-                AuctionDto nauctionDto = new AuctionDto();
-                nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
-                nauctionDto.setAuctiontitle(entity.getAuctiontitle());
-                nauctionDto.setAuctioncontent(entity.getAuctioncontent());
-                nauctionDto.setAuctioncategory(entity.getAuctioncategory());
-                nauctionDto.setAuctionuser(entity.getAuctionuser());
-                nauctionDto.setAuctiontime(entity.getAuctiontime());
-                nauctionDto.setAuctionendtime(entity.getAuctionendtime());
-                nauctionDto.setAuctionprice(entity.getAuctionprice());
-                nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
-                nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
-                nauctionDto.setAuctionbidder(entity.getAuctionbidder());
-                nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                if (auctionDto.getAuctioncategory() != null && auctionDto.getAuctioncategory().equals(entity.getAuctioncategory())) {
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
 
-                // 이미지 경로 추가
-                List<String> imageUrls = new ArrayList<>();
-                for (int i = 0; i < entity.getAuctionimages().size(); i++) {
-                    String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
-                    imageUrls.add(imageUrl);
-                    if (i == 0) {
-                        nauctionDto.setAuctionfirsturl(imageUrl);
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
                     }
-                }
-                nauctionDto.setAuctionimageurl(imageUrls);
+                    nauctionDto.setAuctionimageurl(imageUrls);
 
-                auctionDtos.add(nauctionDto);
+                    auctionDtos.add(nauctionDto);
+                }else{
+                    AuctionDto nauctionDto = new AuctionDto();
+                    nauctionDto.setAuctionid(Long.valueOf(entity.getAuctionid()));
+                    nauctionDto.setAuctiontitle(entity.getAuctiontitle());
+                    nauctionDto.setAuctioncontent(entity.getAuctioncontent());
+                    nauctionDto.setAuctioncategory(entity.getAuctioncategory());
+                    nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
+                    nauctionDto.setAuctiontime(entity.getAuctiontime());
+                    nauctionDto.setAuctionendtime(entity.getAuctionendtime());
+                    nauctionDto.setAuctionprice(entity.getAuctionprice());
+                    nauctionDto.setAuctionbidprice(entity.getAuctionbidprice());
+                    nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
+                    nauctionDto.setAuctionbidder(entity.getAuctionbidder());
+                    nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+
+                    // 이미지 경로 추가
+                    List<String> imageUrls = new ArrayList<>();
+                    for (int i = 0; i < entity.getAuctionimages().size(); i++) {
+                        String imageUrl = entity.getAuctionimages().get(i).getAuctionimagepath();
+                        imageUrls.add(imageUrl);
+                        if (i == 0) {
+                            nauctionDto.setAuctionfirsturl(imageUrl);
+                        }
+                    }
+                    nauctionDto.setAuctionimageurl(imageUrls);
+
+                    auctionDtos.add(nauctionDto);
+                }
             }
         }catch(Exception e){
             e.printStackTrace();

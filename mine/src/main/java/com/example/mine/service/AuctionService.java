@@ -122,6 +122,7 @@ public class AuctionService {
                 auctionDtos.setAuctioncontent(entity.getAuctioncontent());
                 auctionDtos.setAuctioncategory(entity.getAuctioncategory());
                 auctionDtos.setAuctionuser(entity.getAuctionuser());
+                auctionDtos.setAuctionusername(entity.getAuctionusername());
                 auctionDtos.setAuctiontime(entity.getAuctiontime());
                 auctionDtos.setAuctionendtime(entity.getAuctionendtime());
                 auctionDtos.setAuctionprice(entity.getAuctionprice());
