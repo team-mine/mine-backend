@@ -52,6 +52,8 @@ public class SearchController {
             auctionDto.setAuctioncategory(auctioncategory);
 
             List<AuctionDto> auctionlist = searchservice.usernameget(auctionDto);
+
+            System.out.println("auctionuser : " + auctionuser);
             return ResponseEntity.ok(auctionlist);
         }catch(Exception e){
             e.printStackTrace();
@@ -68,6 +70,7 @@ public class SearchController {
             auctionDto.setAuctioncategory(auctioncategory);
 
             List<AuctionDto> auctionlist = searchservice.titleget(auctionDto);
+            System.out.println(auctiontitle);
             return ResponseEntity.ok(auctionlist);
         }catch(Exception e){
             e.printStackTrace();

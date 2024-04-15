@@ -5,6 +5,7 @@ import com.example.mine.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ public class UserController {
             userDto.setUser(user);
             userDto.setUsername(username);
             userservice.saveuser(userDto);
+
             return ResponseEntity.ok("유저정보 저장 성공");
         }catch(Exception e){
             e.printStackTrace();
@@ -34,6 +36,7 @@ public class UserController {
             userDto.setUser(user);
 
             UserDto userlist = userservice.readuser(userDto);
+
 
             return ResponseEntity.ok(userlist);
         }catch(Exception e){

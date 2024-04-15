@@ -20,8 +20,7 @@ public class UserService {
             String user = userDto.getUser();
             String username = userDto.getUsername();
 
-            System.out.println(username);
-            System.out.println(user);
+
 
             Optional<UserEntity> userOptional = userRepository.findByUser(user);
 

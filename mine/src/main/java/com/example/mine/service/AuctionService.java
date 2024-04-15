@@ -54,7 +54,9 @@ public class AuctionService {
             if (userOptional.isPresent()) {
                 UserEntity userEntity = userOptional.get();
 
-                userEntity.setWriteid(auctionDto.getAuctionid());
+
+                userEntity.setWriteid(auctionEntity.getAuctionid());
+                System.out.println(auctionDto.getAuctionid());
 
                 userRepository.save(userEntity);
             }else{
