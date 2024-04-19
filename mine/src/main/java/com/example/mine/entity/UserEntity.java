@@ -22,4 +22,7 @@ public class UserEntity {
 
     @Column(name = "writeid")
     private Long writeid;
+
+    @Column(name = "scrapid")
+    private Long scrapid;
 }

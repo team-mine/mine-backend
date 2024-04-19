@@ -9,4 +9,5 @@ public class UserDto {
     private String username;
     private Long bidid;
     private Long writeid;
+    private Long scrapid;
 }

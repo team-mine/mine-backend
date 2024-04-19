@@ -44,4 +44,22 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @PostMapping("/scrap")
+    public ResponseEntity<String> scrap(@RequestParam(value = "user") String user,
+                                        @RequestParam(value = "auctionid") String auctionid){
+        try {
+            Long scrapid = Long.valueOf(auctionid);
+            UserDto userDto = new UserDto();
+            userDto.setUser(user);
+            userDto.setScrapid(scrapid);
+
+            userservice.scrapuser(userDto);
+
+            return ResponseEntity.ok("스크랩 성공!");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }

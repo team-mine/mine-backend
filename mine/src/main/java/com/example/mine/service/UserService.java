@@ -1,6 +1,7 @@
 package com.example.mine.service;
 
 import com.example.mine.dto.UserDto;
+import com.example.mine.entity.AuctionEntity;
 import com.example.mine.entity.UserEntity;
 import com.example.mine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,26 @@ public class UserService {
                 userdtos.setUsername(userEntity.getUsername());
                 userdtos.setBidid(userEntity.getBidid());
                 userdtos.setWriteid(userEntity.getWriteid());
+                userdtos.setScrapid(userEntity.getScrapid());
             }
         }catch(Exception e){
             e.printStackTrace();
         }
         return userdtos;
+    }
+
+    public String scrapuser(UserDto userDto){
+        try{
+            Optional<UserEntity> userOptional = userRepository.findByUser(userDto.getUser());
+
+            if (userOptional.isPresent()) {
+                UserEntity userEntity = userOptional.get();
+                userEntity.setScrapid(userDto.getScrapid());
+
+                userRepository.save(userEntity);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
