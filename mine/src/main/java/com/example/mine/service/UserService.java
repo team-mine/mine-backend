@@ -69,10 +69,15 @@ public class UserService {
             Optional<UserEntity> userOptional = userRepository.findByUser(userDto.getUser());
 
             if (userOptional.isPresent()) {
-                UserEntity userEntity = userOptional.get();
-                userEntity.setScrapid(userDto.getScrapid());
+                Optional<UserEntity> userscrapOptional = userRepository.findByScrapid(userDto.getScrapid());
+                if(userscrapOptional.isPresent()){
+                    return("이미 스크랩중입니다.");
+                }else{
+                    UserEntity userEntity = userOptional.get();
+                    userEntity.setScrapid(userDto.getScrapid());
 
-                userRepository.save(userEntity);
+                    userRepository.save(userEntity);
+                }
 
             }else{
              return("유저가 존재하지 않습니다!");
@@ -81,5 +86,29 @@ public class UserService {
             e.printStackTrace();
         }
         return("스크랩 완료!");
+    }
+
+    public String unscrapuser(UserDto userDto){
+        try{
+            Optional<UserEntity> userOptional = userRepository.findByUser(userDto.getUser());
+
+            if (userOptional.isPresent()) {
+                Optional<UserEntity> userscrapOptional = userRepository.findByScrapid(userDto.getScrapid());
+                if(userscrapOptional.isPresent()){
+                    UserEntity userEntity = userOptional.get();
+                    userEntity.setScrapid(null);
+
+                    userRepository.save(userEntity);
+                }else{
+                    return("스크랩 중이지 않습니다.");
+                }
+
+            }else{
+                return("유저가 존재하지 않습니다!");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return("스크랩 취소 완료!");
     }
 }

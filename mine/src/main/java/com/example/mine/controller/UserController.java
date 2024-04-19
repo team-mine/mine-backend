@@ -4,10 +4,7 @@ import com.example.mine.dto.UserDto;
 import com.example.mine.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -50,6 +47,7 @@ public class UserController {
                                         @RequestParam(value = "auctionid") String auctionid){
         try {
             Long scrapid = Long.valueOf(auctionid);
+
             UserDto userDto = new UserDto();
             userDto.setUser(user);
             userDto.setScrapid(scrapid);
@@ -57,6 +55,24 @@ public class UserController {
             userservice.scrapuser(userDto);
 
             return ResponseEntity.ok("스크랩 성공!");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PutMapping("/unscrap")
+    public ResponseEntity<String> unscrap(@RequestParam(value = "user") String user,
+                                        @RequestParam(value = "auctionid") String auctionid){
+        try {
+            Long scrapid = Long.valueOf(auctionid);
+            UserDto userDto = new UserDto();
+            userDto.setUser(user);
+            userDto.setScrapid(scrapid);
+
+            userservice.unscrapuser(userDto);
+
+            return ResponseEntity.ok("스크랩 취소 성공!");
         }catch(Exception e){
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
