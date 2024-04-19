@@ -12,6 +12,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="com.example.mine" target="17" />
+      <module name="com.example.mine.main" target="17" />
+      <module name="com.example.mine.test" target="17" />
       <module name="mine.mine.main" target="17" />
       <module name="mine.mine.test" target="17" />
     </bytecodeTargetLevel>
