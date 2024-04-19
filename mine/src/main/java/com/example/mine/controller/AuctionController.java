@@ -103,7 +103,7 @@ public class AuctionController {
     @PutMapping("/auctionupdate")
     public ResponseEntity<String> auctionupdate(@RequestParam(value = "auctionid", required = false) Long auctionid,
                                                 @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
-                                                @RequestParam(value = "acutiontitle", required = false) String auctiontitle,
+                                                @RequestParam(value = "auctiontitle", required = false) String auctiontitle,
                                                 @RequestParam(value = "auctioncontent", required = false) String auctioncontent,
                                                 @RequestParam(value = "auctionimages", required = false) List<MultipartFile> auctionimages,
                                                 @RequestParam(value = "auctionuser", required = false) String auctionuser,

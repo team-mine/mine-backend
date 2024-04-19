@@ -52,6 +52,8 @@ public class SearchService {
                     }
                     nauctionDto.setAuctionimageurl(imageUrls);
 
+                    System.out.println("auctiontitle");
+
                     auctionDtos.add(nauctionDto);
                 }else if(auctionDto.getAuctioncontent() != null && auctionDto.getAuctioncontent().equals(entity.getAuctioncontent())){
                     AuctionDto nauctionDto = new AuctionDto();
@@ -161,6 +163,9 @@ public class SearchService {
                     nauctionDto.setAuctionimageurl(imageUrls);
 
                     auctionDtos.add(nauctionDto);
+
+                    System.out.println("entity: "+ entity.getAuctiontitle());
+                    System.out.println("Dto : " + auctionDto.getAuctiontitle());
                 }
             }
         }catch(Exception e){
