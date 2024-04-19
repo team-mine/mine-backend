@@ -100,6 +100,18 @@ public class AuctionController {
         }
     }
 
+    @GetMapping("/auctionpayment")
+    public ResponseEntity<String> auctionpayment(@RequestParam(value = "auctionbidprice") String auctionbidprice,
+                                                 @RequestParam(value = "auctionid") String auctionid,
+                                                 @RequestParam(value = "auctionuser")String auctionuser){
+        try{
+            return ResponseEntity.ok("결제 완료!");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
+        }
+    }
+
     @PutMapping("/auctionupdate")
     public ResponseEntity<String> auctionupdate(@RequestParam(value = "auctionid", required = false) Long auctionid,
                                                 @RequestParam(value = "auctioncategory", required = false) String auctioncategory,
