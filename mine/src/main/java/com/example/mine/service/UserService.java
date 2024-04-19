@@ -73,9 +73,13 @@ public class UserService {
                 userEntity.setScrapid(userDto.getScrapid());
 
                 userRepository.save(userEntity);
+
+            }else{
+             return("유저가 존재하지 않습니다!");
             }
         }catch(Exception e){
             e.printStackTrace();
         }
+        return("스크랩 완료!");
     }
 }
