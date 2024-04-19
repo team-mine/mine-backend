@@ -33,6 +33,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -62,6 +63,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -89,6 +91,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -116,6 +119,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -143,6 +147,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -189,6 +194,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -216,6 +222,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -259,6 +266,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -286,6 +294,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -329,6 +338,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -356,6 +366,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -399,6 +410,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
@@ -426,6 +438,7 @@ public class SearchService {
                     nauctionDto.setAuctioncontent(entity.getAuctioncontent());
                     nauctionDto.setAuctioncategory(entity.getAuctioncategory());
                     nauctionDto.setAuctionuser(entity.getAuctionuser());
+                    nauctionDto.setAuctionusername(entity.getAuctionusername());
                     nauctionDto.setAuctiontime(entity.getAuctiontime());
                     nauctionDto.setAuctionendtime(entity.getAuctionendtime());
                     nauctionDto.setAuctionprice(entity.getAuctionprice());
