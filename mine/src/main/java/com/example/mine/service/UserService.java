@@ -2,19 +2,27 @@ package com.example.mine.service;
 
 import com.example.mine.dto.UserDto;
 import com.example.mine.entity.AuctionEntity;
+import com.example.mine.entity.ScrapEntity;
 import com.example.mine.entity.UserEntity;
+import com.example.mine.repository.ScrapRepository;
 import com.example.mine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final ScrapRepository scrapRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository){this.userRepository = userRepository;}
+    public UserService(UserRepository userRepository, ScrapRepository scrapRepository){
+        this.userRepository = userRepository;
+        this.scrapRepository = scrapRepository;
+    }
 
     public String saveuser(UserDto userDto){
         try {
@@ -56,7 +64,11 @@ public class UserService {
                 userdtos.setUsername(userEntity.getUsername());
                 userdtos.setBidid(userEntity.getBidid());
                 userdtos.setWriteid(userEntity.getWriteid());
-                userdtos.setScrapid(userEntity.getScrapid());
+
+                List<String> scrapIds = userEntity.getScraps().stream()
+                        .map(ScrapEntity::getScrapid)
+                        .collect(Collectors.toList());
+                userdtos.setScrapids(scrapIds);
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -69,14 +81,16 @@ public class UserService {
             Optional<UserEntity> userOptional = userRepository.findByUser(userDto.getUser());
 
             if (userOptional.isPresent()) {
-                Optional<UserEntity> userscrapOptional = userRepository.findByScrapid(userDto.getScrapid());
-                if(userscrapOptional.isPresent()){
+                Optional<ScrapEntity> scrapOptional = scrapRepository.findByScrapid(userDto.getScrapid());
+                if(scrapOptional.isPresent()){
                     return("이미 스크랩중입니다.");
                 }else{
-                    UserEntity userEntity = userOptional.get();
-                    userEntity.setScrapid(userDto.getScrapid());
+                    UserEntity newuser = userOptional.get();
+                    ScrapEntity newScrap = new ScrapEntity();
+                    newScrap.setScrapid(userDto.getScrapid());
+                    newScrap.setUserentity(newuser);
 
-                    userRepository.save(userEntity);
+                    scrapRepository.save(newScrap);
                 }
 
             }else{
@@ -93,22 +107,27 @@ public class UserService {
             Optional<UserEntity> userOptional = userRepository.findByUser(userDto.getUser());
 
             if (userOptional.isPresent()) {
-                Optional<UserEntity> userscrapOptional = userRepository.findByScrapid(userDto.getScrapid());
-                if(userscrapOptional.isPresent()){
+                Optional<ScrapEntity> scrapOptional = scrapRepository.findByScrapid(userDto.getScrapid());
+
+                if(scrapOptional.isPresent()){
                     UserEntity userEntity = userOptional.get();
-                    userEntity.setScrapid(null);
+
+                    ScrapEntity scrapToRemove = scrapOptional.get();
+                    userEntity.getScraps().remove(scrapToRemove);
 
                     userRepository.save(userEntity);
-                }else{
-                    return("스크랩 중이지 않습니다.");
+
+                    return "스크랩 취소 완료!";
+                } else {
+                    return "스크랩 정보가 없습니다!";
                 }
 
-            }else{
-                return("유저가 존재하지 않습니다!");
+            } else {
+                return "유저가 존재하지 않습니다!";
             }
-        }catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
+            return "스크랩 취소 실패!";
         }
-        return("스크랩 취소 완료!");
     }
 }

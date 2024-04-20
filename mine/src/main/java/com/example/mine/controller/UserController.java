@@ -46,11 +46,9 @@ public class UserController {
     public ResponseEntity<String> scrap(@RequestParam(value = "user") String user,
                                         @RequestParam(value = "auctionid") String auctionid){
         try {
-            Long scrapid = Long.valueOf(auctionid);
-
             UserDto userDto = new UserDto();
             userDto.setUser(user);
-            userDto.setScrapid(scrapid);
+            userDto.setScrapid(auctionid);
 
             userservice.scrapuser(userDto);
 
@@ -65,10 +63,9 @@ public class UserController {
     public ResponseEntity<String> unscrap(@RequestParam(value = "user") String user,
                                         @RequestParam(value = "auctionid") String auctionid){
         try {
-            Long scrapid = Long.valueOf(auctionid);
             UserDto userDto = new UserDto();
             userDto.setUser(user);
-            userDto.setScrapid(scrapid);
+            userDto.setScrapid(auctionid);
 
             userservice.unscrapuser(userDto);
 
