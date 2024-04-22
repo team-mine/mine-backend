@@ -96,7 +96,7 @@ public class SearchController {
 
     @GetMapping("/bothsearch")
     public ResponseEntity<List<AuctionDto>> bothsaerch(@RequestParam(value = "auctionkeyword")String auctionkeyword,
-                                                       @RequestParam(value = "auctioncategory")String auctioncategory){
+                                                       @RequestParam(value = "auctioncategory", required = false)String auctioncategory){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctionkeyword(auctionkeyword);
