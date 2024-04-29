@@ -299,6 +299,7 @@ public class AuctionService {
     public String auctiondelete(AuctionDto auctionDto){
         try {
             Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionDto.getAuctionid());
+            Optional<ScrapEntity> scrapOptional = scrapRepository.findByScrapid(String.valueOf(auctionDto.getAuctionid()));
 
             System.out.println(auctionDto.getAuctionid());
 
@@ -313,24 +314,21 @@ public class AuctionService {
                     return "입찰자가 존재하기 때문에 삭제할 수 없습니다.";
                 }
 
+                if(scrapOptional.isPresent()){
+                    UserEntity userEntity = new UserEntity();
+
+                    ScrapEntity scrapToRemove = scrapOptional.get();
+                    userEntity.getScraps().remove(scrapToRemove);
+
+                    userRepository.save(userEntity);
+                }
 
                 auctionRepository.deleteById(auctionDto.getAuctionid());
 
                 Optional<UserEntity> userOptional = userRepository.findByUser(auctionDto.getAuctionuser());
 
                 if (userOptional.isPresent()) {
-                    Optional<ScrapEntity> scrapOptional = scrapRepository.findByScrapid(String.valueOf(auctionDto.getAuctionid()));
-                    Optional<BididEntity> bididOptional = bididRepository.findByBidid(String.valueOf(auctionDto.getAuctionid()));
                     Optional<WriteidEntity> writeidOptional = writeidRepository.findByWriteid(String.valueOf(auctionDto.getAuctionid()));
-
-                    if(scrapOptional.isPresent()){
-                        UserEntity userEntity = userOptional.get();
-
-                        ScrapEntity scrapToRemove = scrapOptional.get();
-                        userEntity.getScraps().remove(scrapToRemove);
-
-                        userRepository.save(userEntity);
-                    }
 
                     if(writeidOptional.isPresent()){
                         UserEntity userEntity = userOptional.get();
