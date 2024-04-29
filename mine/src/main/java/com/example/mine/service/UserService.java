@@ -1,9 +1,7 @@
 package com.example.mine.service;
 
 import com.example.mine.dto.UserDto;
-import com.example.mine.entity.AuctionEntity;
-import com.example.mine.entity.ScrapEntity;
-import com.example.mine.entity.UserEntity;
+import com.example.mine.entity.*;
 import com.example.mine.repository.ScrapRepository;
 import com.example.mine.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,13 +60,21 @@ public class UserService {
 
                 userdtos.setUserid(userEntity.getUserid());
                 userdtos.setUsername(userEntity.getUsername());
-                userdtos.setBidid(userEntity.getBidid());
-                userdtos.setWriteid(userEntity.getWriteid());
 
                 List<String> scrapIds = userEntity.getScraps().stream()
                         .map(ScrapEntity::getScrapid)
                         .collect(Collectors.toList());
                 userdtos.setScrapids(scrapIds);
+
+                List<String> bidids = userEntity.getBidid().stream()
+                        .map(BididEntity::getBidid)
+                        .collect(Collectors.toList());
+                userdtos.setBidids(bidids);
+
+                List<String> writeids = userEntity.getWriteid().stream()
+                        .map(WriteidEntity::getWriteid)
+                        .collect(Collectors.toList());
+                userdtos.setBidids(writeids);
             }
         }catch(Exception e){
             e.printStackTrace();

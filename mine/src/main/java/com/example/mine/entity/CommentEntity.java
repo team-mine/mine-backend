@@ -25,4 +25,7 @@ public class CommentEntity {
 
     @Column(name = "datetime")                                  //댓글 작성 시간
     private LocalDateTime datetime;
+
+    @Column(name = "parentcomment")                             //부모 댓글
+    private String parentcomment;
 }

@@ -1,11 +1,8 @@
 package com.example.mine.service;
 
 import com.example.mine.dto.AuctionDto;
-import com.example.mine.entity.AuctionEntity;
-import com.example.mine.entity.AuctionImageEntity;
-import com.example.mine.entity.UserEntity;
-import com.example.mine.repository.AuctionRepository;
-import com.example.mine.repository.UserRepository;
+import com.example.mine.entity.*;
+import com.example.mine.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,11 +20,17 @@ import java.util.stream.Collectors;
 public class AuctionService {
     private final AuctionRepository auctionRepository;
     private final UserRepository userRepository;
+    private final ScrapRepository scrapRepository;
+    private final WriteidRepository writeidRepository;
+    private final BididRepository bididRepository;
 
     @Autowired
-    public AuctionService(AuctionRepository auctionRepository, UserRepository userRepository) {
+    public AuctionService(AuctionRepository auctionRepository, UserRepository userRepository, WriteidRepository writeidRepository, BididRepository bididRepository, ScrapRepository scrapRepository) {
         this.auctionRepository = auctionRepository;
         this.userRepository = userRepository;
+        this.scrapRepository = scrapRepository;
+        this.writeidRepository = writeidRepository;
+        this.bididRepository = bididRepository;
     }
 
     public String saveAuction(AuctionDto auctionDto) {
@@ -51,18 +54,23 @@ public class AuctionService {
             auctionRepository.save(auctionEntity);
 
             Optional<UserEntity> userOptional = userRepository.findByUser(auctionDto.getAuctionuser());
+
             if (userOptional.isPresent()) {
-                UserEntity userEntity = userOptional.get();
+                Optional<WriteidEntity> writeidOptional = writeidRepository.findByWriteid(String.valueOf(auctionEntity.getAuctionid()));
+                if(writeidOptional.isPresent()){
+                    return("이미 작성중이 완료된 게시물입니다.");
+                }else{
+                    UserEntity newuser = userOptional.get();
+                    WriteidEntity writeid = new WriteidEntity();
+                    writeid.setWriteid(String.valueOf(auctionEntity.getAuctionid()));
+                    writeid.setUserentity(newuser);
 
+                    writeidRepository.save(writeid);
+                }
 
-                userEntity.setWriteid(auctionEntity.getAuctionid());
-                System.out.println(auctionDto.getAuctionid());
-
-                userRepository.save(userEntity);
             }else{
-                return "유저가 존재하지 않습니다.";
+                return("유저가 존재하지 않습니다!");
             }
-
             return "글 작성 완료!";
         } catch (Exception e) {
             e.printStackTrace();
@@ -263,19 +271,25 @@ public class AuctionService {
                 return "해당하는 경매가 존재하지 않습니다";
             }
 
-            Optional<UserEntity> userOptional = userRepository.findByUser(auctionbidder);
+            Optional<UserEntity> userOptional = userRepository.findByUser(auctionDto.getAuctionbidder());
+
             if (userOptional.isPresent()) {
-                UserEntity userEntity = userOptional.get();
+                Optional<BididEntity> bididOptional = bididRepository.findByBidid(String.valueOf(auctionDto.getAuctionid()));
+                if(bididOptional.isPresent()){
+                    return("이미 입찰한 상품입니다.");
+                }else{
+                    UserEntity newuser = userOptional.get();
+                    BididEntity bidid = new BididEntity();
+                    bidid.setBidid(String.valueOf(auctionDto.getAuctionid()));
+                    bidid.setUserentity(newuser);
 
-                userEntity.setBidid(auctionId);
+                    bididRepository.save(bidid);
+                }
 
-                userRepository.save(userEntity);
-                
-                return "입찰 완료!";
             }else{
-                return "유저가 존재하지 않습니다.";
+                return("유저가 존재하지 않습니다!");
             }
-
+            return "입찰 완료!";
         } catch (Exception e) {
             e.printStackTrace();
             return "505 예기치 못한 오류입니다";
@@ -306,10 +320,54 @@ public class AuctionService {
                 }
 
                 auctionRepository.deleteById(auctionDto.getAuctionid());
-                return "게시글 삭제완료";
+
+                Optional<UserEntity> userOptional = userRepository.findByUser(auctionDto.getAuctionuser());
+
+                if (userOptional.isPresent()) {
+                    Optional<ScrapEntity> scrapOptional = scrapRepository.findByScrapid(String.valueOf(auctionDto.getAuctionid()));
+                    Optional<BididEntity> bididOptional = bididRepository.findByBidid(String.valueOf(auctionDto.getAuctionid()));
+                    Optional<WriteidEntity> writeidOptional = writeidRepository.findByWriteid(String.valueOf(auctionDto.getAuctionid()));
+
+                    if(scrapOptional.isPresent()){
+                        UserEntity userEntity = userOptional.get();
+
+                        ScrapEntity scrapToRemove = scrapOptional.get();
+                        userEntity.getScraps().remove(scrapToRemove);
+
+                        userRepository.save(userEntity);
+                    } else {
+                        return "스크랩 정보가 없습니다!";
+                    }
+
+                    if(bididOptional.isPresent()){
+                        UserEntity userEntity = userOptional.get();
+
+                        ScrapEntity bididToRemove = scrapOptional.get();
+                        userEntity.getBidid().remove(bididToRemove);
+
+                        userRepository.save(userEntity);
+                    } else {
+                        return "입찰한 게시글의 정보가 없습니다!";
+                    }
+
+                    if(writeidOptional.isPresent()){
+                        UserEntity userEntity = userOptional.get();
+
+                        WriteidEntity writeidToRemove = writeidOptional.get();
+                        userEntity.getWriteid().remove(writeidToRemove);
+
+                        userRepository.save(userEntity);
+                    } else {
+                        return "작성한 게시글의 정보가 없습니다!";
+                    }
+                } else {
+                    return "유저가 존재하지 않습니다!";
+                }
             } else {
                 return "해당하는 경매가 존재하지 않습니다.";
             }
+
+            return "경매글 삭제 완료!";
         } catch (Exception e) {
             e.printStackTrace();
             return "경매글 삭제 실패";

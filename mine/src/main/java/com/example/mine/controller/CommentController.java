@@ -24,7 +24,8 @@ public class CommentController {
     @PostMapping("/comment/write")
     public ResponseEntity<String> write_comment(@RequestParam(value = "boardid")String boardid,
                                                 @RequestParam(value = "content")String content,
-                                                @RequestParam(value = "username")String username) {
+                                                @RequestParam(value = "username")String username,
+                                                @RequestParam(value = "parentcomment", required = false)String parentcomment) {
         try {
             Long lboardid = Long.parseLong(boardid);
             CommentDto commentDto = new CommentDto();
@@ -32,6 +33,7 @@ public class CommentController {
             commentDto.setContent(content);
             commentDto.setUsername(username);
             commentDto.setDatetime(LocalDateTime.now().toString());
+            commentDto.setParentcomment(parentcomment);
             commentService.addComment(commentDto);
             return ResponseEntity.ok("댓글 작성 완료!");
         }catch(Exception e){

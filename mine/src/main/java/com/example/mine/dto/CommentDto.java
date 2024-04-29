@@ -9,4 +9,5 @@ public class CommentDto {
     private String content;         //댓글 내용
     private String username;        //댓글 작성한 유저
     private String datetime;        //댓글 작성한 시간
+    private String parentcomment;
 }

@@ -26,6 +26,7 @@ public class CommentService {
         commentEntity.setUsername(commentDto.getUsername());
         commentEntity.setBoardid(commentDto.getBoardid());
         commentEntity.setDatetime(LocalDateTime.parse(commentDto.getDatetime()));
+        commentEntity.setParentcomment(commentDto.getParentcomment());
 
         commentRepository.save(commentEntity);
     }

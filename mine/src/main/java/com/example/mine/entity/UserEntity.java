@@ -19,11 +19,11 @@ public class UserEntity {
     @Column(name = "username")                                  //유저 닉네임
     private String username;
 
-    @Column(name = "bidid")                                     //입찰한 게시글 ID
-    private Long bidid;
+    @OneToMany(mappedBy = "userentity", cascade = CascadeType.ALL, orphanRemoval = true)   //입찰한 게시글 ID
+    private List<BididEntity> bidid;
 
-    @Column(name = "writeid")                                   //작성한 게시글 ID
-    private Long writeid;
+    @OneToMany(mappedBy = "userentity", cascade = CascadeType.ALL, orphanRemoval = true)  //작성한 게시글 ID
+    private List<WriteidEntity> writeid;
 
     @OneToMany(mappedBy = "userentity", cascade = CascadeType.ALL, orphanRemoval = true) //스크랩한 게시글 ID
     private List<ScrapEntity> scraps;
