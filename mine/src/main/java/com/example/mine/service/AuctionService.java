@@ -298,6 +298,7 @@ public class AuctionService {
 
     public String auctiondelete(AuctionDto auctionDto){
         try {
+            Optional<UserEntity> alluserOptional = userRepository.findUserWithNonEmptyScraps();
             Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionDto.getAuctionid());
             Optional<ScrapEntity> scrapOptional = scrapRepository.findByScrapid(String.valueOf(auctionDto.getAuctionid()));
 
@@ -315,7 +316,7 @@ public class AuctionService {
                 }
 
                 if(scrapOptional.isPresent()){
-                    UserEntity userEntity = new UserEntity();
+                    UserEntity userEntity = alluserOptional.get();
 
                     ScrapEntity scrapToRemove = scrapOptional.get();
                     userEntity.getScraps().remove(scrapToRemove);
