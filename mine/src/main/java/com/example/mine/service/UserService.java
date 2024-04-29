@@ -75,7 +75,7 @@ public class UserService {
                 List<String> writeids = userEntity.getWriteid().stream()
                         .map(WriteidEntity::getWriteid)
                         .collect(Collectors.toList());
-                userdtos.setBidids(writeids);
+                userdtos.setWriteids(writeids);
             }
         }catch(Exception e){
             e.printStackTrace();
