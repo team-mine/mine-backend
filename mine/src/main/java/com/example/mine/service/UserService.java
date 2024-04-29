@@ -59,6 +59,7 @@ public class UserService {
                 UserEntity userEntity = userOptional.get();
 
                 userdtos.setUserid(userEntity.getUserid());
+                userdtos.setUser(userEntity.getUser());
                 userdtos.setUsername(userEntity.getUsername());
 
                 List<String> scrapIds = userEntity.getScraps().stream()
