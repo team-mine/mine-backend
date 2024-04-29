@@ -141,8 +141,8 @@ public class AuctionController {
     }
 
     @DeleteMapping("/auctiondelete")
-    public ResponseEntity<String> auctiondelete(@RequestParam(value = "auctionid", required = false) Long auctionid,
-                                                @RequestParam(value = "auctionuser", required = false) String auctionuser){
+    public ResponseEntity<String> auctiondelete(@RequestParam(value = "auctionid") Long auctionid,
+                                                @RequestParam(value = "auctionuser") String auctionuser){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctionid(auctionid);

@@ -300,6 +300,8 @@ public class AuctionService {
         try {
             Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionDto.getAuctionid());
 
+            System.out.println(auctionDto.getAuctionid());
+
             if (auctionOptional.isPresent()) {
                 AuctionEntity auctionEntity = auctionOptional.get();
 
@@ -311,13 +313,6 @@ public class AuctionService {
                     return "입찰자가 존재하기 때문에 삭제할 수 없습니다.";
                 }
 
-                List<AuctionImageEntity> imagesToDelete = auctionEntity.getAuctionimages();
-                for (AuctionImageEntity imageEntity : imagesToDelete) {
-                    File file = new File(imageEntity.getAuctionimagepath());
-                    if (file.exists()) {
-                        file.delete();
-                    }
-                }
 
                 auctionRepository.deleteById(auctionDto.getAuctionid());
 
@@ -335,19 +330,6 @@ public class AuctionService {
                         userEntity.getScraps().remove(scrapToRemove);
 
                         userRepository.save(userEntity);
-                    } else {
-                        return "스크랩 정보가 없습니다!";
-                    }
-
-                    if(bididOptional.isPresent()){
-                        UserEntity userEntity = userOptional.get();
-
-                        ScrapEntity bididToRemove = scrapOptional.get();
-                        userEntity.getBidid().remove(bididToRemove);
-
-                        userRepository.save(userEntity);
-                    } else {
-                        return "입찰한 게시글의 정보가 없습니다!";
                     }
 
                     if(writeidOptional.isPresent()){
@@ -357,9 +339,8 @@ public class AuctionService {
                         userEntity.getWriteid().remove(writeidToRemove);
 
                         userRepository.save(userEntity);
-                    } else {
-                        return "작성한 게시글의 정보가 없습니다!";
                     }
+
                 } else {
                     return "유저가 존재하지 않습니다!";
                 }
