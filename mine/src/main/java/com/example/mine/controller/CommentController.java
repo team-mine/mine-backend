@@ -24,6 +24,7 @@ public class CommentController {
     @PostMapping("/comment/write")
     public ResponseEntity<String> write_comment(@RequestParam(value = "boardid")String boardid,
                                                 @RequestParam(value = "content")String content,
+                                                @RequestParam(value = "user")String user,
                                                 @RequestParam(value = "username")String username,
                                                 @RequestParam(value = "parentcomment", required = false)String parentcomment) {
         try {
@@ -31,6 +32,7 @@ public class CommentController {
             CommentDto commentDto = new CommentDto();
             commentDto.setBoardid(lboardid);
             commentDto.setContent(content);
+            commentDto.setUser(user);
             commentDto.setUsername(username);
             commentDto.setDatetime(LocalDateTime.now().toString());
             commentDto.setParentcomment(parentcomment);

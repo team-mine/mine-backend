@@ -20,6 +20,9 @@ public class CommentEntity {
     @Column(name = "content")                                   //댓글 내용
     private String content;
 
+    @Column(name = "user")                                  //댓글 작성자
+    private String user;
+
     @Column(name = "username")                                  //댓글 작성자
     private String username;
 
