@@ -108,9 +108,12 @@ public class AuctionController {
         try{
             AuctionDto auctionDto = new AuctionDto();
 
+            if(auctiondirectbid != null){
+                auctionDto.setAuctiondirectbid(Long.valueOf(auctiondirectbid));
+            }
+
             auctionDto.setAuctionid(Long.valueOf(auctionid));
             auctionDto.setAuctionendtime(auctionendtime);
-            auctionDto.setAuctiondirectbid(Long.valueOf(auctiondirectbid));
             auctionDto.setAuctionbidder(auctionbidder);
 
             auctionservice.completeauction(auctionDto);
