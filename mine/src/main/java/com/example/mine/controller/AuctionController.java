@@ -41,10 +41,10 @@ public class AuctionController {
             auctiondto.setAuctionprice(auctionprice);
             auctiondto.setAuctionendtime(auctionendtime);
             auctiondto.setAuctionbidprice(auctionprice);
-            if(auctiondirectbid != null){
+
+            if(auctiondirectbid.equals("0")){
                 auctiondto.setAuctiondirectbid(Long.valueOf(auctiondirectbid));
             }
-
 
             auctionservice.saveAuction(auctiondto);
             return ResponseEntity.ok("글 작성 완료!");

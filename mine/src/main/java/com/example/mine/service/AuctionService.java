@@ -170,19 +170,23 @@ public class AuctionService {
             if (auctionOptional.isPresent()) {
                 AuctionEntity auctionEntity = auctionOptional.get();
 
-                if(auctionDto.getAuctionendtime() != null){
-                    LocalDateTime auctionEndTime = LocalDateTime.parse(auctionDto.getAuctionendtime(), DateTimeFormatter.ISO_DATE_TIME);
+                if (auctionDto.getAuctionendtime() != null) {
+                    String cleanedEndTime = auctionDto.getAuctionendtime().replaceAll("/(.*/)", "").trim();
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd yyyy HH:mm:ss 'GMT'Z", Locale.ENGLISH);
+                    LocalDateTime auctionEndTime = LocalDateTime.parse(cleanedEndTime, formatter);
+
                     LocalDateTime currentDateTime = LocalDateTime.now();
                     if (currentDateTime.isEqual(auctionEndTime) || currentDateTime.isAfter(auctionEndTime)) {
                         auctionEntity.setAuctioncomplete(true);
                         auctionRepository.save(auctionEntity);
-
+                        System.out.println("Ok");
                         return "경매시간 초과";
                     }
                 }else if(auctionDto.getAuctiondirectbid() != null && auctionDto.getAuctiondirectbid() >= auctionEntity.getAuctiondirectbid()){
                     auctionEntity.setAuctioncomplete(true);
                     auctionEntity.setAuctionbidder(auctionDto.getAuctionbidder());
-                    auctionEntity.setAuctionbidder(auctionEntity.getAuctionbidder() + 1);
+                    auctionEntity.setAuctionbidsnum(auctionEntity.getAuctionbidsnum() + 1);
                     auctionRepository.save(auctionEntity);
 
                     System.out.println("입찰완료");
