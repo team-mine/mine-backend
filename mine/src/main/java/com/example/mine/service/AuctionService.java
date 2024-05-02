@@ -187,9 +187,11 @@ public class AuctionService {
                         return "경매시간 초과";
                     }
                 }else if(auctionDto.getAuctiondirectbid() != null && auctionDto.getAuctiondirectbid() >= auctionEntity.getAuctiondirectbid()){
+                    long num = auctionEntity.getAuctionbidsnum();
+                    num++;
                     auctionEntity.setAuctioncomplete(true);
                     auctionEntity.setAuctionbidder(auctionDto.getAuctionbidder());
-                    auctionEntity.setAuctionbidsnum(auctionEntity.getAuctionbidsnum() + 1);
+                    auctionEntity.setAuctionbidsnum(num);
                     auctionRepository.save(auctionEntity);
 
                     System.out.println("입찰완료");
