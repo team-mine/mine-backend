@@ -103,13 +103,15 @@ public class AuctionController {
     @GetMapping("/auctioncomplete")
     public ResponseEntity<String> auctioncomplete(@RequestParam(value = "auctionid") String auctionid,
                                                   @RequestParam(value = "auctionendtime", required = false) String auctionendtime,
-                                                  @RequestParam(value = "auctiondirectbid", required = false) String auctiondirectbid){
+                                                  @RequestParam(value = "auctiondirectbid", required = false) String auctiondirectbid,
+                                                  @RequestParam(value = "auctionbidder", required = false) String auctionbidder){
         try{
             AuctionDto auctionDto = new AuctionDto();
 
             auctionDto.setAuctionid(Long.valueOf(auctionid));
             auctionDto.setAuctionendtime(auctionendtime);
             auctionDto.setAuctiondirectbid(Long.valueOf(auctiondirectbid));
+            auctionDto.setAuctionbidder(auctionbidder);
 
             auctionservice.completeauction(auctionDto);
 
@@ -163,13 +165,11 @@ public class AuctionController {
 
     @DeleteMapping("/auctiondelete")
     public ResponseEntity<String> auctiondelete(@RequestParam(value = "auctionid") Long auctionid,
-                                                @RequestParam(value = "auctionuser") String auctionuser,
-                                                @RequestParam(value = "auctionbidder") String auctionbidder){
+                                                @RequestParam(value = "auctionuser") String auctionuser){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctionid(auctionid);
             auctionDto.setAuctionuser(auctionuser);
-            auctionDto.setAuctionbidder(auctionbidder);
 
             String auctionresponse = auctionservice.auctiondelete(auctionDto);
             return ResponseEntity.ok(auctionresponse);
