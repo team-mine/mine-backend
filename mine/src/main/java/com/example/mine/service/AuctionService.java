@@ -171,12 +171,15 @@ public class AuctionService {
                 AuctionEntity auctionEntity = auctionOptional.get();
 
                 if (auctionDto.getAuctionendtime() != null) {
-                    String cleanedEndTime = auctionDto.getAuctionendtime().replaceAll("/(.*/)", "").trim();
+                    // 문자열에서 추가 정보 및 공백 삭제
+                    String cleanedEndTime = auctionDto.getAuctionendtime().replaceAll("\\(.*\\)", "").trim();
 
+                    // 수정된 문자열을 사용하여 파싱
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd yyyy HH:mm:ss 'GMT'Z", Locale.ENGLISH);
                     LocalDateTime auctionEndTime = LocalDateTime.parse(cleanedEndTime, formatter);
 
                     LocalDateTime currentDateTime = LocalDateTime.now();
+
                     if (currentDateTime.isEqual(auctionEndTime) || currentDateTime.isAfter(auctionEndTime)) {
                         auctionEntity.setAuctioncomplete(true);
                         auctionRepository.save(auctionEntity);
