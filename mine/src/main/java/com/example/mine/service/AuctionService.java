@@ -180,6 +180,7 @@ public class AuctionService {
                     }
                 }else if(auctionDto.getAuctiondirectbid() != null && auctionDto.getAuctiondirectbid() >= auctionEntity.getAuctiondirectbid()){
                     auctionEntity.setAuctioncomplete(true);
+                    auctionEntity.setAuctionbidder(auctionDto.getAuctionbidder());
                     auctionRepository.save(auctionEntity);
 
                     System.out.println("입찰완료");

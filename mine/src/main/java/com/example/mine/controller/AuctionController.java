@@ -163,11 +163,13 @@ public class AuctionController {
 
     @DeleteMapping("/auctiondelete")
     public ResponseEntity<String> auctiondelete(@RequestParam(value = "auctionid") Long auctionid,
-                                                @RequestParam(value = "auctionuser") String auctionuser){
+                                                @RequestParam(value = "auctionuser") String auctionuser,
+                                                @RequestParam(value = "auctionbidder") String auctionbidder){
         try{
             AuctionDto auctionDto = new AuctionDto();
             auctionDto.setAuctionid(auctionid);
             auctionDto.setAuctionuser(auctionuser);
+            auctionDto.setAuctionbidder(auctionbidder);
 
             String auctionresponse = auctionservice.auctiondelete(auctionDto);
             return ResponseEntity.ok(auctionresponse);
