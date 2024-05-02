@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ public class AuctionService {
             auctionEntity.setAuctionbidprice(auctionDto.getAuctionbidprice());
             auctionEntity.setAuctiondirectbid(auctionDto.getAuctiondirectbid());
             auctionEntity.setAuctionbidsnum(0L);
+            auctionEntity.setAuctioncomplete(false);
 
             List<AuctionImageEntity> imageEntities = saveImages(auctionDto.getAuctionimage(), auctionEntity);
             auctionEntity.setAuctionimages(imageEntities);
@@ -98,6 +100,7 @@ public class AuctionService {
                 auctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                 auctionDto.setAuctionbidder(entity.getAuctionbidder());
                 auctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                auctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                 // 이미지 경로 추가
                 List<String> imageUrls = new ArrayList<>();
@@ -156,6 +159,40 @@ public class AuctionService {
         }
 
         return auctionDtos;
+    }
+
+    public String completeauction(AuctionDto auctionDto){
+        try{
+            Long auctionId = auctionDto.getAuctionid();
+            Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionId);
+
+            if (auctionOptional.isPresent()) {
+                AuctionEntity auctionEntity = auctionOptional.get();
+
+                if(auctionDto.getAuctionendtime() != null){
+                    LocalDateTime auctionEndTime = LocalDateTime.parse(auctionDto.getAuctionendtime(), DateTimeFormatter.ISO_DATE_TIME);
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+                    if (currentDateTime.isEqual(auctionEndTime) || currentDateTime.isAfter(auctionEndTime)) {
+                        auctionEntity.setAuctioncomplete(true);
+                        auctionRepository.save(auctionEntity);
+
+                        return "경매시간 초과";
+                    }
+                }else if(auctionDto.getAuctiondirectbid() != null && auctionDto.getAuctiondirectbid() >= auctionEntity.getAuctiondirectbid()){
+                    auctionEntity.setAuctioncomplete(true);
+                    auctionRepository.save(auctionEntity);
+
+                    System.out.println("입찰완료");
+                    return "즉시 입찰 완료";
+                }
+            }else{
+                return "해당하는 경매가 존재하지 않습니다.";
+            }
+            return "경매 확인 완료";
+        }catch(Exception e){
+            e.printStackTrace();
+            return "505 예기치 못한 오류입니다";
+        }
     }
 
     private List<AuctionImageEntity> saveImages(List<MultipartFile> images, AuctionEntity auctionEntity) {

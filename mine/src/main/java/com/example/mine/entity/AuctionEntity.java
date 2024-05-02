@@ -45,11 +45,14 @@ public class AuctionEntity {
     private String auctionbidder;
 
     @Column(name = "auctiondirectbid")                                                      //경매 즉시 입찰가격
-    private String auctiondirectbid;
+    private Long auctiondirectbid;
 
     @Column(name = "auctionbidprice")                                                       //경매 입찰 가격
     private String auctionbidprice;
 
     @Column(name = "auctionbidsnum")                                                        //경매 입찰 횟수
     private Long auctionbidsnum;
+
+    @Column(name = "auctioncomplete")                                                       //경매 완료 여부
+    private boolean auctioncomplete;
 }

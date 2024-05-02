@@ -40,7 +40,7 @@ public class AuctionController {
             auctiondto.setAuctioncategory(auctioncategory);
             auctiondto.setAuctionprice(auctionprice);
             auctiondto.setAuctionendtime(auctionendtime);
-            auctiondto.setAuctiondirectbid(auctiondirectbid);
+            auctiondto.setAuctiondirectbid(Long.valueOf(auctiondirectbid));
             auctiondto.setAuctionbidprice(auctionprice);
 
             auctionservice.saveAuction(auctiondto);
@@ -99,6 +99,27 @@ public class AuctionController {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
         }
     }
+
+    @GetMapping("/auctioncomplete")
+    public ResponseEntity<String> auctioncomplete(@RequestParam(value = "auctionid") String auctionid,
+                                                  @RequestParam(value = "auctionendtime", required = false) String auctionendtime,
+                                                  @RequestParam(value = "auctiondirectbid", required = false) String auctiondirectbid){
+        try{
+            AuctionDto auctionDto = new AuctionDto();
+
+            auctionDto.setAuctionid(Long.valueOf(auctionid));
+            auctionDto.setAuctionendtime(auctionendtime);
+            auctionDto.setAuctiondirectbid(Long.valueOf(auctiondirectbid));
+
+            auctionservice.completeauction(auctionDto);
+
+            return ResponseEntity.ok("경매 완료여부 확인 완료");
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("505 예기치 못한 오류입니다");
+        }
+    }
+
 
     @GetMapping("/auctionpayment")
     public ResponseEntity<String> auctionpayment(@RequestParam(value = "auctionbidprice") String auctionbidprice,

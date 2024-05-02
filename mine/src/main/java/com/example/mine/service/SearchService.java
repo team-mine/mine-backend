@@ -41,6 +41,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -71,6 +72,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -99,6 +101,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -127,6 +130,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -155,6 +159,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -202,6 +207,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -230,6 +236,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -274,6 +281,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -302,6 +310,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -346,6 +355,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -374,6 +384,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -418,6 +429,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
@@ -446,6 +458,7 @@ public class SearchService {
                     nauctionDto.setAuctiondirectbid(entity.getAuctiondirectbid());
                     nauctionDto.setAuctionbidder(entity.getAuctionbidder());
                     nauctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
+                    nauctionDto.setAuctioncomplete(entity.isAuctioncomplete());
 
                     // 이미지 경로 추가
                     List<String> imageUrls = new ArrayList<>();
