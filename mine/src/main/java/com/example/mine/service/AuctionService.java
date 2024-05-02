@@ -143,6 +143,7 @@ public class AuctionService {
                 auctionDtos.setAuctiondirectbid(entity.getAuctiondirectbid());
                 auctionDtos.setAuctionbidder(entity.getAuctionbidder());
                 auctionDtos.setAuctionbidsnum(entity.getAuctionbidsnum());
+                auctionDtos.setAuctioncomplete(entity.isAuctioncomplete());
 
                 List<String> imageUrls = new ArrayList<>();
                 for (int i = 0; i < entity.getAuctionimages().size(); i++) {
