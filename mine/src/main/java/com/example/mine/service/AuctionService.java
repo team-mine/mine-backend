@@ -169,6 +169,7 @@ public class AuctionService {
         try{
             Long auctionId = auctionDto.getAuctionid();
             Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionId);
+            Optional<UserEntity> userOptional = userRepository.findById(auctionId);
 
             if (auctionOptional.isPresent()) {
                 AuctionEntity auctionEntity = auctionOptional.get();
@@ -190,15 +191,31 @@ public class AuctionService {
                         return "경매시간 초과";
                     }
                 }else if(auctionDto.getAuctiondirectbid() != null && auctionDto.getAuctiondirectbid() >= auctionEntity.getAuctiondirectbid()){
-                    long num = auctionEntity.getAuctionbidsnum();
-                    num++;
-                    auctionEntity.setAuctioncomplete(true);
-                    auctionEntity.setAuctionbidder(auctionDto.getAuctionbidder());
-                    auctionEntity.setAuctionbidsnum(num);
-                    auctionRepository.save(auctionEntity);
+                    if(userOptional.isPresent()) {
+                        Optional<BididEntity> bididOptional = bididRepository.findByBidid(String.valueOf(auctionDto.getAuctionid()));
+                        if(bididOptional.isPresent()){
+                            return("이미 입찰한 상품입니다.");
+                        }else {
+                            UserEntity userentity = userOptional.get();
+                            long num = auctionEntity.getAuctionbidsnum();
+                            num++;
+                            auctionEntity.setAuctioncomplete(true);
+                            auctionEntity.setAuctionbidder(auctionDto.getAuctionbidder());
+                            auctionEntity.setAuctionbidsnum(num);
 
-                    System.out.println("입찰완료");
-                    return "즉시 입찰 완료";
+                            BididEntity bidid = new BididEntity();
+                            bidid.setBidid(String.valueOf(auctionDto.getAuctionid()));
+                            bidid.setUserentity(userentity);
+
+                            bididRepository.save(bidid);
+                            auctionRepository.save(auctionEntity);
+
+                            System.out.println("입찰완료");
+                            return "즉시 입찰 완료";
+                        }
+                    }else{
+                        return "유저테이블에 유저가 존재하지 않습니다.";
+                    }
                 }
             }else{
                 return "해당하는 경매가 존재하지 않습니다.";
