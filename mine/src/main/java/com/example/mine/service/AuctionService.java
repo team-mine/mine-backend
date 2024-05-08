@@ -146,7 +146,7 @@ public class AuctionService {
                 auctionDtos.setAuctionbidder(entity.getAuctionbidder());
                 auctionDtos.setAuctionbidsnum(entity.getAuctionbidsnum());
                 auctionDtos.setAuctioncomplete(entity.isAuctioncomplete());
-                auctionDto.setAuctionpay(entity.isAuctionpay());
+                auctionDtos.setAuctionpay(entity.isAuctionpay());
 
                 List<String> imageUrls = new ArrayList<>();
                 for (int i = 0; i < entity.getAuctionimages().size(); i++) {
