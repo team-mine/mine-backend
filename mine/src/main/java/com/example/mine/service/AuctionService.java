@@ -402,4 +402,20 @@ public class AuctionService {
             return "경매글 삭제 실패";
         }
     }
+
+    public String paymentauction(AuctionDto auctionDto){
+        try{
+            Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionDto.getAuctionid());
+            if (auctionOptional.isPresent()) {
+                AuctionEntity auctionEntity = auctionOptional.get();
+                auctionEntity.setAuctioncomplete(true);
+                return "결제 완료!";
+            }else{
+                return "유저가 존재하지 않습니다!";
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return "경매글 삭제 실패";
+        }
+    }
 }

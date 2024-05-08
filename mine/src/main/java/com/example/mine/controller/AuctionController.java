@@ -42,7 +42,7 @@ public class AuctionController {
             auctiondto.setAuctionendtime(auctionendtime);
             auctiondto.setAuctionbidprice(auctionprice);
 
-            if(auctiondirectbid.equals("0")){
+            if(!auctiondirectbid.equals("0")){
                 auctiondto.setAuctiondirectbid(Long.valueOf(auctiondirectbid));
             }
 
@@ -134,6 +134,10 @@ public class AuctionController {
                                                  @RequestParam(value = "auctionid") String auctionid,
                                                  @RequestParam(value = "auctionuser")String auctionuser){
         try{
+            AuctionDto auctionDto = new AuctionDto();
+            auctionDto.setAuctionid(Long.valueOf(auctionid));
+
+            auctionservice.paymentauction(auctionDto);
             return ResponseEntity.ok("결제 완료!");
         }catch(Exception e){
             e.printStackTrace();
