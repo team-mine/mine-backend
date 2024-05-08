@@ -409,6 +409,8 @@ public class AuctionService {
             if (auctionOptional.isPresent()) {
                 AuctionEntity auctionEntity = auctionOptional.get();
                 auctionEntity.setAuctioncomplete(true);
+
+                auctionRepository.save(auctionEntity);
                 return "결제 완료!";
             }else{
                 return "유저가 존재하지 않습니다!";
