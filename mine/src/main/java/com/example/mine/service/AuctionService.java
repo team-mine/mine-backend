@@ -49,6 +49,7 @@ public class AuctionService {
             auctionEntity.setAuctiondirectbid(auctionDto.getAuctiondirectbid());
             auctionEntity.setAuctionbidsnum(0L);
             auctionEntity.setAuctioncomplete(false);
+            auctionEntity.setAuctionpay(false);
 
             List<AuctionImageEntity> imageEntities = saveImages(auctionDto.getAuctionimage(), auctionEntity);
             auctionEntity.setAuctionimages(imageEntities);
@@ -101,6 +102,7 @@ public class AuctionService {
                 auctionDto.setAuctionbidder(entity.getAuctionbidder());
                 auctionDto.setAuctionbidsnum(entity.getAuctionbidsnum());
                 auctionDto.setAuctioncomplete(entity.isAuctioncomplete());
+                auctionDto.setAuctionpay(entity.isAuctionpay());
 
                 // 이미지 경로 추가
                 List<String> imageUrls = new ArrayList<>();
@@ -408,7 +410,7 @@ public class AuctionService {
             Optional<AuctionEntity> auctionOptional = auctionRepository.findById(auctionDto.getAuctionid());
             if (auctionOptional.isPresent()) {
                 AuctionEntity auctionEntity = auctionOptional.get();
-                auctionEntity.setAuctioncomplete(true);
+                auctionEntity.setAuctionpay(true);
 
                 auctionRepository.save(auctionEntity);
                 return "결제 완료!";

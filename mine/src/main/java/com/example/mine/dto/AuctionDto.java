@@ -25,4 +25,5 @@ public class AuctionDto {
     private Long auctionbidsnum;                        //경매 입찰 횟수
     private String auctionkeyword;                      //본문과 제목을 동시에 검색할 때 사용되는 변수
     private boolean auctioncomplete;                    //경매완료 여부
+    private boolean auctionpay;                         //결제 여부
 }

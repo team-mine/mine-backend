@@ -55,4 +55,7 @@ public class AuctionEntity {
 
     @Column(name = "auctioncomplete")                                                       //경매 완료 여부
     private boolean auctioncomplete;
+
+    @Column(name = "auctionpay")                                                            //결제 여부
+    private boolean auctionpay;
 }
